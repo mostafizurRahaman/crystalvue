@@ -1,3 +1,6 @@
+/* Font imports */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700;800&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -6,8 +9,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-lexend);
+  --font-mono: var(--font-lexend);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -41,6 +44,10 @@
 
 :root {
   --radius: 0.75rem;
+
+  /* Font variables */
+  --font-poppins: 'Poppins', system-ui, sans-serif;
+  --font-lexend: 'Lexend', system-ui, sans-serif;
 
   /* Core colors */
   --background: oklch(0.975 0.015 240);
@@ -161,5 +168,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-poppins {
+    font-family: 'Poppins', system-ui, sans-serif;
+  }
+  .font-lexend {
+    font-family: 'Lexend', system-ui, sans-serif;
   }
 }
