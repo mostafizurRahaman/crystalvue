@@ -14,7 +14,8 @@
     "format": "turbo run format",
     "db:generate": "turbo run db:generate --filter=backend",
     "db:migrate": "turbo run db:migrate --filter=backend",
-    "db:studio": "turbo run db:studio --filter=backend"
+    "db:studio": "turbo run db:studio --filter=backend",
+    "vercel-build": "npm rebuild lightningcss && turbo run build"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.21.0",
