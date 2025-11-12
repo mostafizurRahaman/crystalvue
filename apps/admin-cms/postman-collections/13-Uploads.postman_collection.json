@@ -1,0 +1,184 @@
+{
+  "info": {
+    "name": "Uploads Module",
+    "description": "API endpoints for image upload management including deleting images from cloud storage",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Delete Image",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"image-public-id-here\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/uploads/delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "uploads", "delete"]
+        },
+        "description": "Delete image from cloud storage by public ID"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publicId\": \"image-public-id-here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/uploads/delete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "uploads", "delete"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Image with publicId 'image-public-id-here' has been deleted successfully.\",\n  \"data\": {\n    \"publicId\": \"image-public-id-here\",\n    \"deletedAt\": \"2024-01-01T00:00:00.000Z\",\n    \"result\": \"ok\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Image - Not Found",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"non-existent-image-id\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/uploads/delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "uploads", "delete"]
+        },
+        "description": "Delete non-existent image (still returns success as desired state is achieved)"
+      },
+      "response": [
+        {
+          "name": "Success Response (Not Found)",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publicId\": \"non-existent-image-id\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/uploads/delete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "uploads", "delete"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Image with publicId 'non-existent-image-id' was not found, but is considered deleted.\",\n  \"data\": {\n    \"publicId\": \"non-existent-image-id\",\n    \"deletedAt\": \"2024-01-01T00:00:00.000Z\",\n    \"result\": \"not found\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Image - Invalid Request",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"publicId\": \"\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/uploads/delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "uploads", "delete"]
+        },
+        "description": "Delete image with invalid/missing publicId"
+      },
+      "response": [
+        {
+          "name": "Error Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"publicId\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/uploads/delete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "uploads", "delete"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Invalid or missing 'publicId' in the request body.\",\n  \"data\": null\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

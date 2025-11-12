@@ -1,0 +1,377 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum Role {
+  user
+  admin
+  superadmin
+}
+
+enum UserStatus {
+  active
+  blocked
+  pending
+}
+
+// Centralized Image model for Cloudinary management
+model Image {
+  id        String   @id @default(uuid())
+  url       String   @db.Text
+  publicId  String   @unique @db.VarChar(255) @map("public_id")
+  folder    String?  @db.VarChar(255)
+  altText   String?  @db.Text @map("alt_text")
+  width     Int?
+  height    Int?
+  format    String?  @db.VarChar(10)
+  size      Int?     // Size in bytes
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  heroSliders         HeroSlider[] @relation("HeroSliderImages")
+  categoryCardBanners Category[] @relation("CategoryCardBanner")
+  categoryDetailBanners Category[] @relation("CategoryDetailBanner")
+  serviceImages       Service[] @relation("ServiceImages")
+
+  @@map("images")
+  Testimonial Testimonial[]
+  Gallery Gallery[]
+  AboutBlock AboutBlock[] @relation("AboutBlockImage")
+  CompanyStory CompanyStory[] @relation("CompanyStoryLeftImage")
+  AboutPage AboutPage[] @relation("AboutPageBanner")
+  globalSettingsLogo GlobalSettings[] @relation("GlobalSettingsLogo")
+  globalSettingsFavicon GlobalSettings[] @relation("GlobalSettingsFavicon")
+  globalSettingsMeta GlobalSettings[] @relation("GlobalSettingsMeta")
+}
+
+// User model
+model User {
+  id          String     @id @default(cuid())
+  name        String     @db.VarChar(255)
+  email       String     @unique @db.VarChar(255)
+  profileUrl  String?    @db.VarChar(255)
+  role        Role       @default(user)
+  userStatus  UserStatus @default(pending) @map("user_status")
+  password    String     @db.VarChar(255)
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  createdSliders  HeroSlider[] @relation("CreatedBy")
+  modifiedSliders HeroSlider[] @relation("ModifiedBy")
+  Category Category[] @relation("createdBy")
+  
+
+  @@map("users")
+}
+
+// Hero Slider model
+model HeroSlider {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  subtitle    String?  @db.VarChar(255)
+  buttonText  String?  @db.VarChar(100) @map("button_text")
+  buttonUrl   String?  @db.VarChar(255) @map("button_url")
+  isActive    Boolean  @default(true) @map("is_active")
+  orderNumber Int      @map("order_number")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Foreign keys
+  userId       String? @map("user_id")
+  modifiedBy   String? @map("modified_by")
+  imageId      String? @map("image_id")
+
+  // Relations
+  createdByUser  User? @relation("CreatedBy", fields: [userId], references: [id], onDelete: SetNull)
+  modifiedByUser User? @relation("ModifiedBy", fields: [modifiedBy], references: [id], onDelete: SetNull)
+  image          Image? @relation("HeroSliderImages", fields: [imageId], references: [id], onDelete: SetNull)
+  categories     Category[]
+
+  // Indexes
+  @@index([orderNumber], map: "hero_sliders_order_number_idx")
+  @@index([isActive], map: "hero_sliders_is_active_idx")
+  @@index([imageId], map: "hero_sliders_image_id_idx")
+  @@map("hero_sliders")
+}
+
+
+//  Categories (Main service categories like Glass, Aluminium, UPVC)
+model Category {
+  id                  String   @id @default(uuid()) @db.Uuid
+  name                String   @unique @db.VarChar(255)
+  tagline             String?  @db.Text
+  description         String?  @db.Text
+  isPremium           Boolean  @default(false)
+  isRepairingService  Boolean  @default(false)
+  isActive            Boolean  @default(true)
+  sortOrder           Int      @default(0)
+  isShowHome          Boolean @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  userId              String? @map("user_id")
+  cardImageId         String?  @map("card_image_id")
+  detailsImageId     String?  @map("details_image_id")
+
+  // Relations
+  services            Service[]
+  categoryAddons      CategoryAddon[]
+  contactUsEntries    ContactUs[] @relation("ContactUsCategory")
+  createdBy           User? @relation("createdBy", fields: [userId],  references: [id], onDelete: SetNull)
+  cardImage           Image? @relation("CategoryCardBanner", fields: [cardImageId], references: [id], onDelete: SetNull)
+  detailsImage        Image? @relation("CategoryDetailBanner", fields: [detailsImageId], references: [id], onDelete: SetNull)
+
+  @@index([isActive])
+  @@index([isPremium])
+  @@index([isRepairingService])
+  @@index([sortOrder])
+  @@index([cardImageId], map: "categories_card_image_id_idx")
+  @@index([detailsImageId], map: "categories_details_image_id_idx")
+  @@map("parent_categories")
+  HeroSlider HeroSlider[]
+}
+
+// Individual Services (purchasable items within categories)
+model Service {
+  id                 String   @id @default(uuid()) @db.Uuid
+  parentCategoryId   String   @db.Uuid
+  name               String   @db.VarChar(255)
+  tagline            String   @db.Text
+  description        String?  @db.Text
+  price              Decimal? @db.Decimal(10, 2)
+  isPremium          Boolean  @default(false)
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  imageId            String?  @map("image_id")
+
+  // Relations
+  parentCategory     Category @relation(fields: [parentCategoryId], references: [id], onDelete: Cascade)
+  image              Image? @relation("ServiceImages", fields: [imageId], references: [id], onDelete: SetNull)
+  serviceAddons      ServiceAddon[]
+  contactUsEntries    ContactUs[] @relation("ContactUsService")
+
+  @@index([parentCategoryId])
+  @@index([isActive])
+  @@index([imageId], map: "services_image_id_idx")
+  @@map("services")
+}
+
+// Category Add-ons (text-only add-ons for categories)
+model CategoryAddon {
+  id                 String   @id @default(uuid()) @db.Uuid
+  parentCategoryId   String   @db.Uuid
+  addonText          String   @db.VarChar(255)
+  sortOrder          Int      @default(0)
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+
+  // Relations
+  parentCategory     Category @relation(fields: [parentCategoryId], references: [id], onDelete: Cascade)
+
+  @@unique([parentCategoryId, addonText], name: "unique_category_addon")
+  @@index([parentCategoryId])
+  @@index([isActive])
+  @@map("category_addons")
+}
+
+// Service Add-ons (text-only add-ons for specific services)
+model ServiceAddon {
+  id         String   @id @default(uuid()) @db.Uuid
+  serviceId  String   @db.Uuid
+  addonText  String   @db.VarChar(255)
+  sortOrder  Int      @default(0)
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  // Relations
+  service    Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, addonText], name: "unique_service_addon")
+  @@index([serviceId])
+  @@index([isActive])
+  @@map("service_addons")
+}
+
+// Contact Status enum
+enum ContactStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// Contact Us model
+model ContactUs {
+  id            String   @id @default(uuid()) @db.Uuid
+  fullName      String   @db.VarChar(255)
+  phoneNumber   String   @db.VarChar(20)
+  email         String?  @db.VarChar(255)
+  address       String   @db.Text
+  parentCategoryId String   @db.Uuid
+  serviceId     String   @db.Uuid
+  status        ContactStatus @default(PENDING)
+  images        String[] @db.Text
+  message       String   @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  parentCategory Category @relation("ContactUsCategory", fields: [parentCategoryId], references: [id], onDelete: Cascade)
+  service        Service  @relation("ContactUsService", fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+  @@index([parentCategoryId])
+  @@index([serviceId])
+  @@index([status])
+  @@map("contact_us")
+}
+
+
+// Testimonial model with star rating
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(255)
+  message   String   @db.Text
+  rating    Int      @default(5) // Added star rating, validated 1-5 in backend
+  position  String?  @db.VarChar(255)
+  company   String?  @db.VarChar(255)
+  imageId   String?  @map("image_id")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  image     Image? @relation(fields: [imageId], references: [id], onDelete: SetNull)
+
+  @@index([isActive])
+  @@map("testimonials")
+}
+
+
+// Gallery Category enum
+enum GalleryCategory {
+  SHOWER_ENCLOSURES
+  GLASS_DOORS
+  RAILINGS
+  WINDOWS
+  UPVC
+}
+
+model Gallery {
+  id             String         @id @default(uuid())
+  galleryCategory GalleryCategory?
+  imageId        String
+  caption        String?        @db.VarChar(255)
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+
+  // Relations
+  image          Image          @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  @@index([galleryCategory])
+  @@map("gallery")
+}
+
+// Enum for About section blocks
+enum AboutBlockType {
+  VISION
+  MISSION
+}
+
+// About page (single configuration)
+model AboutPage {
+  id             Int      @id @default(1)
+  introTitle     String?  @db.VarChar(255) @map("intro_title")
+  introSubtitle  String?  @db.Text         @map("intro_subtitle")
+  bannerImageId  String?  @map("banner_image_id")    // About page banner
+  heroText       String?  @db.Text         @map("hero_text")
+  isActive       Boolean  @default(true)   @map("is_active")
+  createdAt      DateTime @default(now())  @map("created_at")
+  updatedAt      DateTime @updatedAt       @map("updated_at")
+
+  // Relations
+  bannerImage    Image?        @relation("AboutPageBanner", fields: [bannerImageId], references: [id], onDelete: SetNull)
+  companyStory   CompanyStory? @relation("AboutPageStory")
+  visionBlock    AboutBlock?   @relation("AboutPageVision", fields: [visionBlockId], references: [id])
+  missionBlock   AboutBlock?   @relation("AboutPageMission", fields: [missionBlockId], references: [id])
+
+  visionBlockId  String?       @map("vision_block_id")
+  missionBlockId String?       @map("mission_block_id")
+
+  @@map("about_page")
+}
+
+// Company story (single)
+model CompanyStory {
+  id           String   @id @default(uuid())
+  aboutPageId  Int      @unique @map("about_page_id") // one-to-one with AboutPage
+  title        String?  @db.VarChar(255)
+  content      String   @db.Text
+  leftImageId  String?  @map("left_image_id")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  aboutPage    AboutPage @relation("AboutPageStory", fields: [aboutPageId], references: [id], onDelete: Cascade)
+  leftImage    Image?    @relation("CompanyStoryLeftImage", fields: [leftImageId], references: [id], onDelete: SetNull)
+
+  @@map("company_story")
+}
+
+// About blocks (Vision & Mission)
+model AboutBlock {
+  id           String         @id @default(uuid())
+  type         AboutBlockType @unique @map("type") // only one for each type
+  title        String         @db.VarChar(255)
+  content      String         @db.Text
+  imageId      String?        @map("image_id")
+  isActive     Boolean        @default(true) @map("is_active")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  image        Image?    @relation("AboutBlockImage", fields: [imageId], references: [id], onDelete: SetNull)
+  aboutPageVision  AboutPage[] @relation("AboutPageVision")
+  aboutPageMission AboutPage[] @relation("AboutPageMission")
+
+  @@map("about_blocks")
+}
+
+// Global Settings (singleton model for site-wide configuration)
+model GlobalSettings {
+  id                           Int      @id @default(1)
+  siteTitle                    String   @db.VarChar(255) @map("site_title")
+  siteDescription              String?  @db.Text @map("site_description")
+  logoImageId                  String?  @map("logo_image_id")
+  faviconImageId               String?  @map("favicon_image_id")
+  metaImageId                  String?  @map("meta_image_id")
+  contactEmail                 String   @db.VarChar(255) @map("contact_email")
+  contactPhone                 String   @db.VarChar(50) @map("contact_phone")
+  contactWhatsApp              String?  @db.VarChar(50) @map("contact_whatsapp")
+  officeAddress                String   @db.Text @map("office_address")
+  googleMapEmbedCode           String?  @db.Text @map("google_map_embed_code")
+  socialMediaLinks             Json?    @map("social_media_links")
+  businessHours                Json?    @map("business_hours")
+  seoMetaTitle                 String?  @db.VarChar(255) @map("seo_meta_title")
+  seoMetaDescription           String?  @db.Text @map("seo_meta_description")
+  seoKeywords                  String?  @db.Text @map("seo_keywords")
+  isActive                     Boolean  @default(true) @map("is_active")
+  createdAt                    DateTime @default(now()) @map("created_at")
+  updatedAt                    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  logoImage    Image? @relation("GlobalSettingsLogo", fields: [logoImageId], references: [id], onDelete: SetNull)
+  faviconImage Image? @relation("GlobalSettingsFavicon", fields: [faviconImageId], references: [id], onDelete: SetNull)
+  metaImage    Image? @relation("GlobalSettingsMeta", fields: [metaImageId], references: [id], onDelete: SetNull)
+
+  @@map("global_settings")
+}

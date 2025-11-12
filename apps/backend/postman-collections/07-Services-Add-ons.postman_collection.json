@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "Services Add-ons Module",
+    "description": "API endpoints for managing service add-ons including adding and removing add-ons from services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Add Service Add-on",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"serviceId\": \"service-uuid-here\",\n  \"text\": \"Express service (24 hours)\",\n  \"price\": 25.00,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/services/addons",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", "addons"]
+        },
+        "description": "Add an add-on to a service (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"serviceId\": \"service-uuid-here\",\n  \"text\": \"Express service (24 hours)\",\n  \"price\": 25.00,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/services/addons",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", "addons"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service add-on created successfully\",\n  \"data\": {\n    \"id\": \"addon-uuid-here\",\n    \"serviceId\": \"service-uuid-here\",\n    \"text\": \"Express service (24 hours)\",\n    \"price\": 25.00,\n    \"isActive\": true,\n    \"service\": {\n      \"id\": \"service-uuid-here\",\n      \"name\": \"Phone Screen Repair\",\n      \"tagline\": \"Professional phone screen repair services\"\n    },\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Remove Service Add-on",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/services/addons/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", "addons", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "addon-uuid-here",
+              "description": "Service Add-on ID"
+            }
+          ]
+        },
+        "description": "Remove service add-on by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/services/addons/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", "addons", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "addon-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service add-on removed successfully\",\n  \"data\": {\n    \"id\": \"addon-uuid-here\",\n    \"serviceId\": \"service-uuid-here\",\n    \"text\": \"Express service (24 hours)\",\n    \"price\": 25.00,\n    \"removedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

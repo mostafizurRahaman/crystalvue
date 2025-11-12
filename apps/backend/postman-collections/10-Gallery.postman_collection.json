@@ -1,0 +1,312 @@
+{
+  "info": {
+    "name": "Gallery Module",
+    "description": "API endpoints for gallery management including CRUD operations for gallery images",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Gallery",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/gallery",
+          "host": ["{{base_url}}"],
+          "path": ["api", "gallery"]
+        },
+        "description": "Get all gallery entries (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/gallery",
+              "host": ["{{base_url}}"],
+              "path": ["api", "gallery"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Gallery entries retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-here\",\n      \"title\": \"Phone Repair Gallery\",\n      \"description\": \"Before and after photos of phone repairs\",\n      \"image\": {\n        \"url\": \"https://example.com/gallery-image.jpg\",\n        \"publicId\": \"gallery-image-id\",\n        \"altText\": \"Phone repair gallery image\"\n      },\n      \"category\": \"Electronics Repair\",\n      \"isActive\": true,\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Gallery Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/gallery/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "gallery", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "gallery-uuid-here",
+              "description": "Gallery ID"
+            }
+          ]
+        },
+        "description": "Get single gallery entry details by ID (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/gallery/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "gallery", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "gallery-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Gallery entry retrieved successfully\",\n  \"data\": {\n    \"id\": \"gallery-uuid-here\",\n    \"title\": \"Phone Repair Gallery\",\n    \"description\": \"Before and after photos of phone repairs\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/gallery-image.jpg\",\n      \"publicId\": \"gallery-image-id\",\n      \"folder\": \"app/gallery\",\n      \"altText\": \"Phone repair gallery image\",\n      \"width\": 800,\n      \"height\": 600,\n      \"format\": \"jpg\",\n      \"size\": 200000\n    },\n    \"category\": \"Electronics Repair\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Gallery Entry",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"New Gallery Entry\",\n  \"description\": \"Description of the new gallery entry\",\n  \"image\": {\n    \"url\": \"https://example.com/new-gallery-image.jpg\",\n    \"publicId\": \"new-gallery-image-id\",\n    \"folder\": \"app/gallery\",\n    \"altText\": \"New gallery image\",\n    \"width\": 800,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 180000\n  },\n  \"category\": \"Electronics Repair\",\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/gallery",
+          "host": ["{{base_url}}"],
+          "path": ["api", "gallery"]
+        },
+        "description": "Create a new gallery entry (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Gallery Entry\",\n  \"description\": \"Description of the new gallery entry\",\n  \"image\": {\n    \"url\": \"https://example.com/new-gallery-image.jpg\",\n    \"publicId\": \"new-gallery-image-id\",\n    \"folder\": \"app/gallery\",\n    \"altText\": \"New gallery image\",\n    \"width\": 800,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 180000\n  },\n  \"category\": \"Electronics Repair\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/gallery",
+              "host": ["{{base_url}}"],
+              "path": ["api", "gallery"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Gallery entry created successfully\",\n  \"data\": {\n    \"id\": \"new-gallery-uuid\",\n    \"title\": \"New Gallery Entry\",\n    \"description\": \"Description of the new gallery entry\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/new-gallery-image.jpg\",\n      \"publicId\": \"new-gallery-image-id\",\n      \"folder\": \"app/gallery\",\n      \"altText\": \"New gallery image\",\n      \"width\": 800,\n      \"height\": 600,\n      \"format\": \"jpg\",\n      \"size\": 180000\n    },\n    \"category\": \"Electronics Repair\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Gallery Entry",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Gallery Entry\",\n  \"description\": \"Updated description of the gallery entry\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-gallery-image.jpg\",\n    \"publicId\": \"updated-gallery-image-id\",\n    \"folder\": \"app/gallery\",\n    \"altText\": \"Updated gallery image\",\n    \"width\": 800,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 190000\n  },\n  \"category\": \"Electronics Repair\",\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/gallery/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "gallery", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "gallery-uuid-here",
+              "description": "Gallery ID"
+            }
+          ]
+        },
+        "description": "Update gallery entry by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Gallery Entry\",\n  \"description\": \"Updated description of the gallery entry\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-gallery-image.jpg\",\n    \"publicId\": \"updated-gallery-image-id\",\n    \"folder\": \"app/gallery\",\n    \"altText\": \"Updated gallery image\",\n    \"width\": 800,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 190000\n  },\n  \"category\": \"Electronics Repair\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/gallery/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "gallery", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "gallery-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Gallery entry updated successfully\",\n  \"data\": {\n    \"id\": \"gallery-uuid-here\",\n    \"title\": \"Updated Gallery Entry\",\n    \"description\": \"Updated description of the gallery entry\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-gallery-image.jpg\",\n      \"publicId\": \"updated-gallery-image-id\",\n      \"folder\": \"app/gallery\",\n      \"altText\": \"Updated gallery image\",\n      \"width\": 800,\n      \"height\": 600,\n      \"format\": \"jpg\",\n      \"size\": 190000\n    },\n    \"category\": \"Electronics Repair\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Gallery Entry",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/gallery/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "gallery", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "gallery-uuid-here",
+              "description": "Gallery ID"
+            }
+          ]
+        },
+        "description": "Delete gallery entry by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/gallery/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "gallery", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "gallery-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Gallery entry deleted successfully\",\n  \"data\": null\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}
