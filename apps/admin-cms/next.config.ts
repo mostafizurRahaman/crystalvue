@@ -39,6 +39,7 @@ const nextConfig: NextConfig = {
     
     return config;
   },
+  serverExternalPackages: ['sharp', 'lightningcss'],
   
 };
 
