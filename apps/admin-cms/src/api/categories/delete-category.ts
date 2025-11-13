@@ -1,4 +1,5 @@
 import axiosInstance from "@/configs/axios";
+import { ApiResponse } from "@/configs/axios";
 import { DeleteCategoryResponse } from "@/types/category";
 
 /**

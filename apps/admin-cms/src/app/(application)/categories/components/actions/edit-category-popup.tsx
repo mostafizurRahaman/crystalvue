@@ -60,7 +60,7 @@ export function EditCategoryModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addons, setAddons] = useState<string[]>([]);
   const [newAddon, setNewAddon] = useState("");
-  const { user } = useGetMe();
+  const { user, loading } = useGetMe();
 
   const form = useForm({
     resolver: zodResolver(updateCategorySchema),

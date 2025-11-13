@@ -122,7 +122,7 @@ function mergeCollections() {
   let successCount = 0;
   let errorCount = 0;
 
-  collectionFiles.forEach((filename) => {
+  collectionFiles.forEach((filename, index) => {
     try {
       const filePath = path.join(__dirname, filename);
 

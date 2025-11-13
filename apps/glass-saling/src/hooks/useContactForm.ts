@@ -12,8 +12,8 @@ export const useContactForm = () => {
       // Invalidate any relevant queries if needed
       queryClient.invalidateQueries({ queryKey: ["contact"] });
     },
-    onError: (error: unknown) => {
-      const errorMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message || (error as { message?: string })?.message || "Failed to submit form";
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || error.message || "Failed to submit form";
       toast.error(errorMessage);
     },
     onSettled: () => {

@@ -1,19 +1,21 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { addDays, format } from 'date-fns';
-import type { DateRange } from 'react-day-picker';
+import * as React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { addDays, format } from "date-fns";
+import type { DateRange } from "react-day-picker";
 
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import type { VariantProps } from "class-variance-authority";
+import { buttonVariants } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 
 interface DateRangePickerProps
   extends React.ComponentPropsWithoutRef<typeof PopoverContent> {
@@ -45,14 +47,20 @@ interface DateRangePickerProps
    * @default "outline"
    * @type "default" | "outline" | "secondary" | "ghost"
    */
-  triggerVariant?: "default" | "outline" | "secondary" | "ghost";
+  triggerVariant?: Exclude<
+    VariantProps<typeof buttonVariants>["variant"],
+    "destructive" | "link"
+  >;
 
   /**
    * The size of the calendar trigger button.
    * @default "default"
    * @type "default" | "sm" | "lg"
    */
-  triggerSize?: "default" | "sm" | "lg";
+  triggerSize?: Exclude<
+    VariantProps<typeof buttonVariants>["size"],
+    "icon" | "icon-sm" | "icon-lg"
+  >;
 
   /**
    * The class name of the calendar trigger button.
@@ -65,9 +73,9 @@ interface DateRangePickerProps
 export function DateRangePicker({
   dateRange,
   dayCount,
-  placeholder = 'Choose a date',
-  triggerVariant = 'outline',
-  triggerSize = 'default',
+  placeholder = "Choose a date",
+  triggerVariant = "outline",
+  triggerSize = "default",
   triggerClassName,
   className,
   ...props
@@ -76,8 +84,8 @@ export function DateRangePicker({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const fromParam = searchParams.get('from');
-  const toParam = searchParams.get('to');
+  const fromParam = searchParams.get("from");
+  const toParam = searchParams.get("to");
 
   function calcDateRange() {
     let fromDay: Date | undefined;
@@ -105,15 +113,15 @@ export function DateRangePicker({
   React.useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams);
     if (date?.from) {
-      newSearchParams.set('from', format(date.from, 'yyyy-MM-dd'));
+      newSearchParams.set("from", format(date.from, "yyyy-MM-dd"));
     } else {
-      newSearchParams.delete('from');
+      newSearchParams.delete("from");
     }
 
     if (date?.to) {
-      newSearchParams.set('to', format(date.to, 'yyyy-MM-dd'));
+      newSearchParams.set("to", format(date.to, "yyyy-MM-dd"));
     } else {
-      newSearchParams.delete('to');
+      newSearchParams.delete("to");
     }
 
     router.replace(`${pathname}?${newSearchParams.toString()}`, {
@@ -139,8 +147,8 @@ export function DateRangePicker({
             variant={triggerVariant}
             size={triggerSize}
             className={cn(
-              'w-full justify-start truncate text-left font-normal',
-              !date && 'text-muted-foreground ',
+              "w-full justify-start truncate text-left font-normal",
+              !date && "text-muted-foreground ",
               triggerClassName
             )}
           >
@@ -148,18 +156,18 @@ export function DateRangePicker({
             {date?.from ? (
               date.to ? (
                 <React.Fragment>
-                  {format(date.from, 'LLL dd, y')} -{' '}
-                  {format(date.to, 'LLL dd, y')}
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
                 </React.Fragment>
               ) : (
-                format(date.from, 'LLL dd, y')
+                format(date.from, "LLL dd, y")
               )
             ) : (
               <span>{placeholder}</span>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className={cn('w-auto p-0', className)} {...props}>
+        <PopoverContent className={cn("w-auto p-0", className)} {...props}>
           <Calendar
             initialFocus
             mode="range"

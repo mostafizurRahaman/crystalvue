@@ -39,7 +39,11 @@ export function DataTableRowActions<TData>({
     setEditDialogOpen(true);
   };
 
-  
+  // Handle view details function
+  const handleViewDetails = () => {
+    console.log("View category details:", category);
+    // Implement view details logic or navigation
+  };
 
   return (
     <>

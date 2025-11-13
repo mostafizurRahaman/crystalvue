@@ -14,7 +14,7 @@ import { Typography } from "@/components/typography";
 import { Loader2, Mail, User, Calendar } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteContactUs } from "@/api/contact-us";
-import { ContactUsExportData } from "..";
+import { ContactUsExportData } from "./columns";
 import { format } from "date-fns";
 
 interface DeleteContactUsPopupProps {

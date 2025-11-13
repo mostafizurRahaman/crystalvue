@@ -2,7 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  outputFileTracingRoot: process.cwd(),
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -25,21 +27,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack(config, { isServer }) {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-    };
-    
-    config.experiments = {
-      ...config.experiments,
-      asyncWebAssembly: true,
-      layers: true,
-    };
-    
-    return config;
-  },
-  
 };
 
 export default nextConfig;

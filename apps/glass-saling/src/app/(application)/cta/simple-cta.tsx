@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const SimpleCTA = () => {
+const cta = () => {
   return (
     <section className="py-20 gradient-hero">
       <div className="container mx-auto px-4 text-center text-white">
@@ -34,5 +34,3 @@ const SimpleCTA = () => {
     </section>
   );
 };
-
-export default SimpleCTA;

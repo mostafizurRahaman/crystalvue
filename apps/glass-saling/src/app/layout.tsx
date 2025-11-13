@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import AppLayout from "@/components/layouts/AppLayout";
-import { poppins } from "@/configs/font";
+import { poppins, lexend } from "@/configs/font";
 import { ThemeProvider } from "next-themes";
 
 export const metadata = {

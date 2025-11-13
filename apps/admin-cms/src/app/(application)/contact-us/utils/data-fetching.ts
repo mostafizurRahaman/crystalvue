@@ -26,10 +26,13 @@ export function useContactUsData(
       const response = await getAllContactUs({
         page,
         limit: pageSize,
+        search: preprocessSearch(search),
         sortBy: sortBy as
-          | "name"
+          | "fullName"
+          | "phoneNumber"
           | "email"
-          | "subject"
+          | "parentCategoryId"
+          | "serviceId"
           | "status"
           | "createdAt"
           | "updatedAt",

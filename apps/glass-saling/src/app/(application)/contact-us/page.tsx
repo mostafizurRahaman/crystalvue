@@ -28,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { AsyncSearchableSelect } from "@/components/async-searchable-select";
 import { ContactFormData, ContactFormSchema } from "@/api/types/contact.types";
 import { createContactUsForm } from "@/api";
@@ -97,17 +98,15 @@ const Contact = () => {
         limit: 50,
       });
 
-      let servicesData: unknown[] = [];
-      if (response.success && Array.isArray(response.data)) {
-        servicesData = response.data;
-      }
+      // response.data is already an array of services
+      const servicesData = response.data || [];
 
       const options = {
         data: servicesData
-          .filter((service: unknown): service is unknown => Boolean(service))
-          .map((service: unknown) => ({
-            value: (service as { id: string }).id,
-            label: (service as { name?: string }).name || `Service ${(service as { id: string }).id}`,
+          .filter((service) => service)
+          .map((service) => ({
+            value: service.id,
+            label: service.name || `Service ${service.id}`,
           })),
         success: true,
       };
@@ -178,7 +177,11 @@ const Contact = () => {
     {
       icon: Clock,
       title: "Hours",
-      content: settings?.businessHours || "Loading...",
+      content:
+        settings?.businessHours?.openingText &&
+        settings?.businessHours?.closeText
+          ? `${settings.businessHours.openingText} - ${settings.businessHours.closeText}`
+          : "Loading...",
     },
   ];
 
@@ -241,8 +244,8 @@ const Contact = () => {
                 <CardHeader>
                   <CardTitle>Send us a message</CardTitle>
                   <CardDescription>
-                    Fill out the form below and we&apos;ll get back to you within 24
-                    hours.
+                    Fill out the form below and we&apos;ll get back to you
+                    within 24 hours.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -567,7 +570,6 @@ const Contact = () => {
                   </Button>
                 </CardContent>
               </Card>
-
             </div>
           </div>
         </div>

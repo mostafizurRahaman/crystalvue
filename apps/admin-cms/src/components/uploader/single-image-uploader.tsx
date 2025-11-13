@@ -5,18 +5,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { uploadToCloudinaryDirect, validateFile } from "@/lib/cloudinary-utils";
 import { deleteCloudinaryImage } from "@/api/upload/delete-image";
-
-// ✅ Image metadata interface
-export interface ImageMetadata {
-  id?: string;
-  publicId?: string;
-  folder?: string;
-  altText?: string;
-  width?: number;
-  height?: number;
-  format?: string;
-  size?: number;
-}
+import type { ImageMetadata } from "@/types/shared";
 
 interface SingleImageUploadProps {
   onImageSelect?: (file: File | null) => void;
@@ -87,6 +76,7 @@ export function SingleImageUpload({
         setImage(file);
 
         const metadata: ImageMetadata = {
+          url: result.url,
           publicId: result.publicId,
           folder: folder,
           altText: file.name,
@@ -205,8 +195,8 @@ export function SingleImageUpload({
               disabled || isProcessing
                 ? "cursor-not-allowed opacity-50"
                 : isDragging
-                ? "border-primary bg-primary/5"
-                : "border-border hover:border-primary/50 bg-muted/50"
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50 bg-muted/50"
             }
           `}
         >

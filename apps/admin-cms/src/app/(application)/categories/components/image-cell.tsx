@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/typography";
 import { ImageViewModal } from "@/components/image-viewer";
 import { Eye } from "lucide-react";
 

@@ -5,11 +5,12 @@ import { getColumns } from "./components/columns";
 import { useExportConfig } from "./utils/config";
 import { useContactUsData } from "./utils/data-fetching";
 import { ToolbarOptions } from "./components/toolbar-options";
-import { ContactInquiry } from "@/types";
 import { getBulkContactUsForExport } from "@/api/contact-us";
 import { formatDateOnly } from "@/lib/format-date";
+import type { ExportableData } from "@/components/data-table/utils/export-utils";
+import type { ColumnDef } from "@tanstack/react-table";
 
-interface ContactUsExportData {
+export interface ContactUsExportData {
   id: string;
   name: string;
   email: string;
@@ -20,36 +21,33 @@ interface ContactUsExportData {
   images: string[];
   createdAt: string;
   updatedAt: string;
-  [key: string]: any; // Add index signature to satisfy ExportableData
 }
 
-export type { ContactUsExportData };
+// Type alias to satisfy ExportableData constraint (images is handled by transform function)
+type ContactUsTableData = ContactUsExportData & ExportableData;
 
 const fetchByIdsFn = async (
   ids: string[] | number[]
 ): Promise<ContactUsExportData[]> => {
   const stringIds = ids.map((id) => String(id));
-  
-  // Since the API doesn't support fetching by IDs, we'll need to fetch all and filter
-  const inquiries = await getBulkContactUsForExport({ });
-
-  const filteredInquiries = inquiries.filter((inquiry: ContactInquiry) => 
-    stringIds.includes(inquiry.id)
-  );
+  const inquiries = await getBulkContactUsForExport(stringIds);
 
   return (
-    filteredInquiries?.map((inquiry: ContactInquiry) => ({
-      id: inquiry.id,
-      name: inquiry.fullName,
-      email: inquiry.email,
-      phone: inquiry.phoneNumber || "",
-      subject: inquiry.subject,
-      message: inquiry.message,
-      status: inquiry.status,
-      images: inquiry.images?.map(img => img.url) || [],
-      createdAt: inquiry.createdAt ? formatDateOnly(inquiry.createdAt) : "",
-      updatedAt: inquiry.updatedAt ? formatDateOnly(inquiry.updatedAt) : "",
-    })) || []
+    inquiries?.map(
+      (inquiry) =>
+        ({
+          id: inquiry.id,
+          name: inquiry.fullName,
+          email: inquiry.email,
+          phone: inquiry.phoneNumber || "",
+          subject: inquiry.subject,
+          message: inquiry.message,
+          status: inquiry.status,
+          images: inquiry.images?.map((image) => image.url) || [],
+          createdAt: inquiry.createdAt ? formatDateOnly(inquiry.createdAt) : "",
+          updatedAt: inquiry.updatedAt ? formatDateOnly(inquiry.updatedAt) : "",
+        }) as ContactUsExportData
+    ) || []
   );
 };
 
@@ -57,22 +55,34 @@ export default function ContactUsTable() {
   const exportConfig = useExportConfig();
 
   return (
-    <DataTable<ContactUsExportData, unknown>
-      getColumns={getColumns}
+    <DataTable<ContactUsTableData, unknown>
+      getColumns={
+        getColumns as (
+          handleRowDeselection: ((rowId: string) => void) | null | undefined
+        ) => ColumnDef<ContactUsTableData, unknown>[]
+      }
       exportConfig={exportConfig}
       fetchDataFn={useContactUsData}
-      fetchByIdsFn={fetchByIdsFn}
+      fetchByIdsFn={
+        fetchByIdsFn as (
+          ids: string[] | number[]
+        ) => Promise<ContactUsTableData[]>
+      }
       idField="id"
       pageSizeOptions={[2, 5, 10, 20, 50, 100]}
       renderToolbarContent={({
         selectedRows,
         totalSelectedCount,
         resetSelection,
+      }: {
+        selectedRows: ContactUsTableData[];
+        totalSelectedCount: number;
+        resetSelection: () => void;
       }) => (
         <ToolbarOptions
           selectedInquiries={selectedRows.map((row) => ({
-            id: row.id,
-            name: row.name,
+            id: (row as ContactUsExportData).id,
+            name: (row as ContactUsExportData).name,
           }))}
           totalSelectedCount={totalSelectedCount}
           resetSelection={resetSelection}

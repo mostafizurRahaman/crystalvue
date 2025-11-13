@@ -8,16 +8,19 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Typography } from "@/components/typography";
+import { X, Loader2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { ContactFormData, ContactFormSchema } from "@/api/types/contact.types";
 import { createContactUsForm } from "@/api";
 import type { GalleryImage, Service } from "@/api";
+import Image from "next/image";
 import { MultipleImageUpload } from "./ui/image-uploader";
 
 interface ContactFormPopupProps {

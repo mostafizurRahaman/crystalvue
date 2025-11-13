@@ -10,11 +10,22 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
+  MapPin,
   Phone,
-  ArrowRight,
-  MessageSquare,
-  Sparkles,
   Mail,
+  Clock,
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Youtube,
+  ArrowRight,
+  Sparkles,
+  Zap,
+  Globe,
+  MessageSquare,
+  ExternalLink,
+  Heart,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

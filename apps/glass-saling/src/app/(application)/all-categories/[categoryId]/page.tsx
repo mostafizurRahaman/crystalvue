@@ -88,7 +88,18 @@ const CategoryServicesPage = () => {
   // Get category info from first service (if available)
   const categoryName = services[0]?.parentCategory?.name || "Services";
 
-  
+  // Calculate statistics
+  const stats = useMemo(() => {
+    const total = services.length;
+    const premium = services.filter((s) => s.isPremium).length;
+    const regular = total - premium;
+
+    return {
+      total,
+      premium,
+      regular,
+    };
+  }, [services]);
 
   // Reset page when search or filters change
   useEffect(() => {

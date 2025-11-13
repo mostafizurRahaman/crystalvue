@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -31,7 +31,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { ProfileImageUpload } from "@/components/uploader";
 
 import { createTestimonialSchema } from "@/schemas/testimonials";
@@ -53,7 +52,7 @@ export function CreateTestimonialModal({
   const router = useRouter();
   const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { user, loading: userLoading } = useGetMe();
+  const { loading: userLoading } = useGetMe();
 
   const form = useForm({
     resolver: zodResolver(createTestimonialSchema),
@@ -81,18 +80,7 @@ export function CreateTestimonialModal({
 
     setIsSubmitting(true);
     try {
-      console.log("Submitting form data:", data);
-
-      // Ensure required fields are not empty
-      const submitData = {
-        ...data,
-        message: data.message?.trim() || "",
-        name: data.name?.trim() || "",
-      };
-
-      console.log("Testimonial data to send:", submitData);
-
-      await createTestimonial(submitData);
+      await createTestimonial(data);
       toast.success("Testimonial created successfully");
 
       form.reset();
@@ -112,27 +100,14 @@ export function CreateTestimonialModal({
     }
   };
 
-  const onError = (errors: FieldErrors<CreateTestimonialRequest>) => {
-    console.error("Form validation errors:", errors);
-    toast.error("Please fix the validation errors in the form");
-  };
-
   const handleCancel = () => {
     form.reset();
     onOpenChange(false);
   };
 
-  // Add debugging to see form state
-  console.log("Form state:", {
-    errors: form.formState.errors,
-    isDirty: form.formState.isDirty,
-    isValid: form.formState.isValid,
-    isSubmitting: isSubmitting,
-  });
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="!max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-foreground">
             <Typography variant="Bold_H4" as="span">
@@ -266,10 +241,10 @@ export function CreateTestimonialModal({
                             >
                               <Star
                                 className={`w-6 h-6 ${
-                                  star <= (field.value || 0)
+                                  star <= (field.value ?? 5)
                                     ? "text-yellow-400 fill-current"
                                     : "text-gray-300"
-                                }`}
+                                }}`}
                               />
                             </button>
                           ))}
@@ -292,7 +267,7 @@ export function CreateTestimonialModal({
                         <ProfileImageUpload
                           value={field.value?.url}
                           publicId={field.value?.publicId}
-                          onImageUpload={(url: string | null, metadata?: any) => {
+                          onImageUpload={(url, metadata) => {
                             if (url && metadata) {
                               field.onChange({
                                 url,

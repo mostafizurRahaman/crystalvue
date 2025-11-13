@@ -46,7 +46,9 @@ export async function getAllTestimonials(
 /**
  * Get testimonials by IDs for bulk operations (if needed in the future)
  */
-export async function getTestimonialsByIds(): Promise<Testimonial[]> {
+export async function getTestimonialsByIds(
+  ids: string[]
+): Promise<Testimonial[]> {
   // Note: Since there's no bulk export endpoint for testimonials in the backend,
   // this would be implemented if needed in the future
   console.warn("Bulk export for testimonials is not supported yet");

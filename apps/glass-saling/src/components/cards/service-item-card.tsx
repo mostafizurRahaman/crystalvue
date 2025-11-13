@@ -11,8 +11,10 @@ import {
   Eye,
   Zap,
   Sparkles,
+  Check,
   ShoppingCart,
   MessageCircle,
+  CheckCircle,
   CheckCircle2Icon,
 } from "lucide-react";
 import { Typography } from "@/components/typography";

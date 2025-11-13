@@ -6,7 +6,7 @@ import { DataTableColumnHeader } from "@/components/data-table/column-header";
 import { Checkbox } from "@/components/ui/checkbox";
 import { StatusChips } from "@/components/badges/status-switcher";
 import { Typography } from "@/components/typography";
-import { CategoryExportData } from "@/types/category";
+import { Category, CategoryExportData } from "@/types/category";
 import { DataTableRowActions } from "./row-actions";
 import { Badge } from "@/components/ui/badge";
 

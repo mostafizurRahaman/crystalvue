@@ -14,6 +14,7 @@ import { Typography } from "@/components/typography";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -46,7 +47,7 @@ export function AddCategoryPopup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [addons, setAddons] = useState<string[]>([]);
   const [newAddon, setNewAddon] = useState("");
-  const { user } = useGetMe();
+  const { user, loading: userLoading } = useGetMe();
 
   const router = useRouter();
   const queryClient = useQueryClient();

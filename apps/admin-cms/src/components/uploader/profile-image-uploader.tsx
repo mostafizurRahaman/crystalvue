@@ -11,19 +11,7 @@ import {
   extractPublicId,
 } from "@/lib/cloudinary-utils";
 import { deleteCloudinaryImage } from "@/api/upload/delete-image";
-
-// ✅ Image metadata interface
-export interface ImageMetadata {
-  id?: string;
-  url: string;
-  publicId?: string;
-  folder?: string;
-  altText?: string;
-  width?: number;
-  height?: number;
-  format?: string;
-  size?: number;
-}
+import type { ImageMetadata } from "@/types/shared";
 
 interface ProfileImageUploadProps {
   value?: string; // URL of existing image

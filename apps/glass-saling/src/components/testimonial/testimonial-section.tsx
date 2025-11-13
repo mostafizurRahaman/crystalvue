@@ -11,6 +11,7 @@ import { CustomerReviewCard } from "@/components/cards";
 import { Quote, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTestimonials } from "@/hooks";
+import { Testimonial as ApiTestimonial } from "@/api";
 
 // Import Swiper styles
 import "swiper/css";
@@ -18,7 +19,30 @@ import "swiper/css/pagination";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Interface for testimonial card props (same as defined in testimonial-card.tsx)
+interface TestimonialCardProps {
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  avatar: string;
+  rating: number;
+}
+
+// Helper function to convert API testimonial to component format
+const convertApiTestimonial = (
+  apiTestimonial: ApiTestimonial
+): TestimonialCardProps => ({
+  name: apiTestimonial.name,
+  role: apiTestimonial.position || "Customer",
+  company: apiTestimonial.company || "",
+  content: apiTestimonial.message,
+  avatar: apiTestimonial.image?.url || "/avatars/default.jpg",
+  rating: apiTestimonial.rating,
+});
+
 interface TestimonialsSectionProps {
+  testimonials?: ApiTestimonial[];
   title?: string;
   subtitle?: string;
   badge?: string;

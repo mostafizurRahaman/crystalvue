@@ -8,17 +8,7 @@ import {
   validateFile,
   deleteFromCloudinary,
 } from "@/lib/cloudinary-utils";
-
-// ✅ Image metadata interface
-export interface ImageMetadata {
-  publicId?: string;
-  folder?: string;
-  altText?: string;
-  width?: number;
-  height?: number;
-  format?: string;
-  size?: number;
-}
+import type { ImageMetadata } from "@/types/shared";
 
 interface ImageFile {
   file: File;
@@ -98,6 +88,7 @@ export function MultipleImageUpload({
 
       if (result.success && result.url) {
         const metadata: ImageMetadata = {
+          url: result.url,
           publicId: result.publicId,
           folder: folder,
           altText: file.name,
@@ -356,8 +347,8 @@ export function MultipleImageUpload({
             images.length >= maxFiles || disabled || isUploading
               ? "border-gray-200 bg-gray-100 cursor-not-allowed opacity-60"
               : isDragging
-              ? "border-blue-500 bg-blue-50"
-              : "border-gray-300 hover:border-gray-400 bg-gray-50"
+                ? "border-blue-500 bg-blue-50"
+                : "border-gray-300 hover:border-gray-400 bg-gray-50"
           }
         `}
       >

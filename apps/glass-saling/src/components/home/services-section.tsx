@@ -49,8 +49,6 @@ export function ServicesSection() {
 
   useGSAP(
     () => {
-      if (!container.current) return;
-      
       const cards = gsap.utils.toArray(".service-card");
 
       gsap.fromTo(

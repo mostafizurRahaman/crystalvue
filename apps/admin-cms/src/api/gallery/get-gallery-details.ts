@@ -1,6 +1,6 @@
 import axiosInstance, { ApiErrorResponse } from "@/configs/axios";
 import { AxiosError } from "axios";
-import { GalleryResponse } from "@/types";
+import { GalleryResponse, GetGalleryDetailsRequest } from "@/types";
 
 /**
  * Get gallery details by ID

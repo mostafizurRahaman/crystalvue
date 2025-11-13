@@ -27,17 +27,9 @@ export const getAllContactUsQuerySchema = z.object({
     .default(10),
   sortBy: z.enum(ALLOWED_SORT_FIELDS).default("createdAt"),
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
-  from_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD")
-    .optional(),
-  to_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD")
-    .optional(),
+  from_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD").optional(),
+  to_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD").optional(),
   status: z.enum(ALLOWED_STATUSES).optional(),
 });
 
-export type GetAllContactUsQueryType = z.infer<
-  typeof getAllContactUsQuerySchema
->;
+export type GetAllContactUsQueryType = z.infer<typeof getAllContactUsQuerySchema>;

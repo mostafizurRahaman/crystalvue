@@ -2,6 +2,7 @@
 "use client";
 
 import { useRef } from "react";
+import { gsap } from "gsap";
 import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/typography";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,7 @@ export function ContactInfoCard({
   icon: Icon,
   title,
   content,
+  action,
   color = "from-primary/20 to-primary/5",
   onClick,
   className,

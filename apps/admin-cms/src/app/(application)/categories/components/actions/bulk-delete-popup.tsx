@@ -28,6 +28,7 @@ interface BulkDeletePopupProps {
 export function BulkDeletePopup({
   open,
   onOpenChange,
+  selectedCategories,
   allSelectedIds,
   totalSelectedCount,
   resetSelection,

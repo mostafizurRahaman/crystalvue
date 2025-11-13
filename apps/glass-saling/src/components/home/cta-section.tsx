@@ -18,8 +18,6 @@ export function CTASection() {
   const { data: settings, isLoading } = useSettings();
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !footerRef.current) return;
-    
     const ctx = gsap.context(() => {
       // Cards entrance animation
       gsap.fromTo(

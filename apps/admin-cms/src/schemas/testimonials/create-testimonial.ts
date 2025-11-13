@@ -39,12 +39,14 @@ export const createTestimonialSchema = z.object({
   position: z
     .string()
     .max(255, "Position too long (max 255 characters)")
-    .transform((val) => val.trim()),
+    .transform((val) => (val ? val.trim() : ""))
+    .optional(),
   company: z
     .string()
     .max(255, "Company name too long (max 255 characters)")
-    .transform((val) => val.trim()),
-  image: imageMetadataSchema,
+    .transform((val) => (val ? val.trim() : ""))
+    .optional(),
+  image: imageMetadataSchema.optional(),
   isActive: z.boolean().optional().default(true),
 });
 

@@ -1,4 +1,4 @@
-import {z} from "zod";
+import { z } from "zod";
 
 export const removeServiceAddonParamsSchema = z.object({
   id: z.string().uuid("Invalid service add-on ID format").optional(),
@@ -19,7 +19,7 @@ export const removeServiceAddonQuerySchema = z
     {
       message:
         "When not using ID parameter, both serviceId and addonText query parameters must be provided",
-    }
+    },
   );
 
 export type RemoveServiceAddonParamsType = z.infer<

@@ -7,7 +7,12 @@ import { SettingsForm } from "./_components/settings-form";
 import { AboutPageForm } from "./_components/about-page-form";
 import { CompanyStoryForm } from "./_components/company-story-form";
 import { AboutBlocksForm } from "./_components/about-blocks-form";
-
+import { 
+  SettingsFormSkeleton, 
+  AboutPageFormSkeleton, 
+  CompanyStoryFormSkeleton,
+  AboutBlocksFormSkeleton 
+} from "./_components";
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("general");

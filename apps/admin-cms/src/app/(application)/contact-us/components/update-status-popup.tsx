@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { updateContactUsStatus } from "@/api/contact-us";
-import { ContactUsExportData } from "..";
+import { ContactUsExportData } from "./columns";
 
 const updateStatusSchema = z.object({
   status: z.enum(["pending", "in-progress", "resolved", "closed"], {

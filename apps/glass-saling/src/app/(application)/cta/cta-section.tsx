@@ -12,10 +12,12 @@ import {
   Sparkles,
   Star,
   Phone,
+  Mail,
   MessageSquare,
   ChevronRight,
   Zap,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 gsap.registerPlugin(ScrollTrigger);
 

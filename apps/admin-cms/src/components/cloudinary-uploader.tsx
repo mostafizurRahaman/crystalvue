@@ -79,6 +79,7 @@ const MultiImageUpload: React.FC<MultiImageUploadProps> = ({
         .filter((f) => !f.url.startsWith("blob:") && !f.isUploading)
         .map((f) => f.url);
 
+      const valueSet = new Set(value);
       const currentSet = new Set(currentUrls);
 
       // Check if we need to update internal state

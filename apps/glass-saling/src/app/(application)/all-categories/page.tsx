@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import {
   Search,
   ChevronLeft,
@@ -49,7 +48,20 @@ const sortOptions = [
 // Items per page options
 const itemsPerPageOptions = [2, 12, 24, 36, 48];
 
+// Filter types (example - adjust based on your actual data)
+const categoryTypes = [
+  { value: "residential", label: "Residential" },
+  { value: "commercial", label: "Commercial" },
+  { value: "automotive", label: "Automotive" },
+  { value: "specialty", label: "Specialty" },
+];
 
+const priceRanges = [
+  { value: "0-500", label: "Under $500" },
+  { value: "500-1000", label: "$500 - $1,000" },
+  { value: "1000-5000", label: "$1,000 - $5,000" },
+  { value: "5000+", label: "Above $5,000" },
+];
 
 const AllCategories = () => {
   // State management
@@ -58,7 +70,7 @@ const AllCategories = () => {
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [sortBy, setSortBy] = useState("name-asc");
-  
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Filters
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
@@ -125,7 +137,11 @@ const AllCategories = () => {
     setItemsPerPage(Number(value));
   };
 
-  
+  const handleTypeToggle = (type: string) => {
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+  };
 
   const clearAllFilters = () => {
     setSearchTerm("");
@@ -477,13 +493,11 @@ const AllCategories = () => {
                           className="bg-card rounded-lg p-6 border hover:shadow-lg transition-shadow"
                         >
                           <div className="flex gap-6">
-                            <Image
+                            <img
                               src={
                                 category.cardImage?.url || "/placeholder.jpg"
                               }
                               alt={category.name}
-                              width={128}
-                              height={128}
                               className="w-32 h-32 object-cover rounded-lg"
                             />
                             <div className="flex-1">

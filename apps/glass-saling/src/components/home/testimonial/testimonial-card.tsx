@@ -31,11 +31,9 @@ export function TestimonialCard({
   const quoteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
     const ctx = gsap.context(() => {
       // Floating quote icon animation
-      gsap.to(quoteRef.current || {}, {
+      gsap.to(quoteRef.current, {
         y: -10,
         rotation: 5,
         duration: 3,

@@ -23,8 +23,17 @@ export interface GlobalSettings {
   contactWhatsApp: string | null;
   officeAddress: string | null;
   googleMapEmbedCode: string | null;
-  socialMediaLinks: string | null; // JSON string
-  businessHours: string | null;
+  socialMediaLinks: {
+    facebook: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    linkedin: string | null;
+    youtube: string | null;
+  } | null;
+  businessHours: {
+    openingText: string | null;
+    closeText: string | null;
+  } | null;
   seoMetaTitle: string | null;
   seoMetaDescription: string | null;
   seoKeywords: string | null;
@@ -41,14 +50,14 @@ export interface SettingsApiResponse {
 export const getSettings = async (): Promise<GlobalSettings> => {
   try {
     const response = await axiosInstance.get<SettingsApiResponse>("/settings");
-    
+
     if (!response.data.success) {
-      throw new Error(response.data.message || 'Failed to fetch settings');
+      throw new Error(response.data.message || "Failed to fetch settings");
     }
-    
+
     return response.data.data;
   } catch (error) {
-    console.error('Error fetching settings:', error);
+    console.error("Error fetching settings:", error);
     // Return default settings in case of error
     return {
       id: 1,

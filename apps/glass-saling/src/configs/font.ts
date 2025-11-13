@@ -5,6 +5,7 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-poppins",
   display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 const lexend = Lexend({
@@ -12,6 +13,7 @@ const lexend = Lexend({
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-lexend",
   display: "swap",
+  fallback: ["system-ui", "arial"],
 });
 
 export { poppins, lexend };

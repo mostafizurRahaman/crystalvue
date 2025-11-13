@@ -295,7 +295,7 @@ export function EditTestimonialModal({
                               ? extractPublicId(field.value.url)
                               : undefined)
                           }
-                          onImageUpload={(url: string | null, metadata?: any) => {
+                          onImageUpload={(url, metadata) => {
                             if (url && metadata) {
                               field.onChange({
                                 url,

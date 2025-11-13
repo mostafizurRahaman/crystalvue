@@ -36,14 +36,8 @@ export const getAllServicesQuerySchema = z.object({
     .string()
     .transform((val) => val.trim())
     .optional(),
-  from_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD")
-    .optional(),
-  to_date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD")
-    .optional(),
+  from_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD").optional(),
+  to_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format. Use YYYY-MM-DD").optional(),
 });
 
 export type GetAllServicesQueryType = z.infer<typeof getAllServicesQuerySchema>;

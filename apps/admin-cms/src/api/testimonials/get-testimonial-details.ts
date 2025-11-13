@@ -1,4 +1,4 @@
-import axiosInstance, { ApiErrorResponse } from "@/configs/axios";
+import axiosInstance, { ApiErrorResponse, ApiResponse } from "@/configs/axios";
 import { AxiosError } from "axios";
 import { TestimonialResponse } from "@/types";
 

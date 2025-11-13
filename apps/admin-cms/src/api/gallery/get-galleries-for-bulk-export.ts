@@ -42,7 +42,7 @@ export async function getGalleriesForBulkExport(
       );
 
       return response.data;
-    } catch {
+    } catch (bulkExportError) {
       // If bulk export doesn't exist, fallback to regular getAllGalleries
       console.warn(
         "Bulk export endpoint not found, falling back to regular API"

@@ -10,11 +10,22 @@ import { Typography } from "@/components/typography";
 import { DataTableRowActions } from "./row-actions";
 import { ImageCell } from "./image-cell";
 import { ContactInquiry } from "@/types";
-import type { ContactUsExportData } from "..";
+
+export interface ContactUsExportData {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const getColumns = (
   handleRowDeselection: ((rowId: string) => void) | null | undefined
-): ColumnDef<ContactUsExportData, unknown>[] => {
+): ColumnDef<ContactUsExportData>[] => {
   const baseColumns: ColumnDef<ContactUsExportData>[] = [
     {
       accessorKey: "name",

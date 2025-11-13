@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Trash2, Download } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 interface ToolbarOptionsProps {
   selectedInquiries: { id: string; name: string }[];
@@ -12,7 +12,6 @@ interface ToolbarOptionsProps {
 export function ToolbarOptions({
   selectedInquiries,
   totalSelectedCount,
-  resetSelection,
 }: ToolbarOptionsProps) {
   const handleBulkDelete = () => {
     // This will be implemented later
@@ -31,15 +30,6 @@ export function ToolbarOptions({
           >
             <Trash2 className="mr-2 h-4 w-4" />
             Delete ({totalSelectedCount})
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="sm"
-            className="cursor-pointer"
-          >
-            <Download className="mr-2 h-4 w-4" />
-            Export ({totalSelectedCount})
           </Button>
         </>
       )}

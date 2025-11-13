@@ -11,6 +11,7 @@ import { CustomerReviewCard } from "@/components/cards";
 import { Quote, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useTestimonials } from "@/hooks";
+import type { Testimonial as ApiTestimonial } from "@/api";
 
 // Import Swiper styles
 import "swiper/css";
@@ -46,12 +47,10 @@ export function TestimonialsSection({
   const swiperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !sectionRef.current) return;
-    
     const ctx = gsap.context(() => {
       // Badge animation
       gsap.fromTo(
-        badgeRef.current || {},
+        badgeRef.current,
         {
           scale: 0.8,
           opacity: 0,
@@ -71,7 +70,7 @@ export function TestimonialsSection({
 
       // Title animation
       gsap.fromTo(
-        titleRef.current || {},
+        titleRef.current,
         {
           y: 50,
           opacity: 0,
@@ -92,7 +91,7 @@ export function TestimonialsSection({
 
       // Subtitle animation
       gsap.fromTo(
-        subtitleRef.current || {},
+        subtitleRef.current,
         {
           y: 30,
           opacity: 0,
@@ -113,7 +112,7 @@ export function TestimonialsSection({
 
       // Swiper container animation
       gsap.fromTo(
-        swiperRef.current || {},
+        swiperRef.current,
         {
           y: 60,
           opacity: 0,

@@ -1,13 +1,19 @@
-export const fontVariables = `
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700;800&display=swap');
+import { Lexend, Poppins } from "next/font/google";
 
-  :root {
-    --font-poppins: 'Poppins', system-ui, sans-serif;
-    --font-lexend: 'Lexend', system-ui, sans-serif;
-  }
-`;
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
+});
 
-export const fontClasses = {
-  poppins: 'font-poppins',
-  lexend: 'font-lexend'
-};
+const lexend = Lexend({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-lexend",
+  display: "swap",
+  fallback: ["system-ui", "arial"],
+});
+
+export { poppins, lexend };

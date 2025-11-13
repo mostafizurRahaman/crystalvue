@@ -2,16 +2,40 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ClientOnly } from "@/components/client-only";
+import dynamic from "next/dynamic";
 
 import {
   HomeHero,
-  TrustSection,
-  ServicesSection,
-  TestimonialsSection,
-  CTASection,
   MapSection,
 } from "@/components/home";
+
+const TrustSection = dynamic(
+  () => import("@/components/home").then((mod) => mod.TrustSection),
+  {
+    ssr: false,
+  }
+);
+
+const ServicesSection = dynamic(
+  () => import("@/components/home").then((mod) => mod.ServicesSection),
+  {
+    ssr: false,
+  }
+);
+
+const TestimonialsSection = dynamic(
+  () => import("@/components/home").then((mod) => mod.TestimonialsSection),
+  {
+    ssr: false,
+  }
+);
+
+const CTASection = dynamic(
+  () => import("@/components/home").then((mod) => mod.CTASection),
+  {
+    ssr: false,
+  }
+);
 
 const Index = () => {
   return (
@@ -20,14 +44,10 @@ const Index = () => {
       <HomeHero />
 
       {/* Trusted Section */}
-      <ClientOnly>
-        <TrustSection />
-      </ClientOnly>
+      <TrustSection />
 
       {/* Services Section */}
-      <ClientOnly>
-        <ServicesSection />
-      </ClientOnly>
+      <ServicesSection />
 
       <div className="text-center mt-12 mb-12">
         <Link href="/all-categories">
@@ -41,18 +61,14 @@ const Index = () => {
       </div>
 
       {/* CTA Section */}
-      <ClientOnly>
-        <CTASection />
-      </ClientOnly>
+      <CTASection />
 
       {/* Testimonials Section */}
-      <ClientOnly>
-        <TestimonialsSection
-          title="What Our Clients Say"
-          subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"
-          badge="Testimonials"
-        />
-      </ClientOnly>
+      <TestimonialsSection
+        title="What Our Clients Say"
+        subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"
+        badge="Testimonials"
+      />
 
       {/* Map Section */}
       <MapSection />

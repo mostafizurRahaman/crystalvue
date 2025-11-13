@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Eye, Trash2, Edit } from "lucide-react";
-import { ContactUsExportData } from "..";
+import { ContactUsExportData } from "./columns";
 import { useState } from "react";
 import { UpdateStatusPopup } from "./update-status-popup";
 import { DeleteContactUsPopup } from "./delete-contact-us-popup";

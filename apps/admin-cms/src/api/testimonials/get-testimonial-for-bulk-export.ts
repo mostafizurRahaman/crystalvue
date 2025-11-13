@@ -1,5 +1,5 @@
 import axiosInstance, { ApiResponse } from "@/configs/axios";
-import { TestimonialsResponse, GetBulkTestimonialsRequest, GetBulkTestimonialsByIdsRequest } from "@/types";
+import { TestimonialsResponse, GetBulkTestimonialsRequest, GetBulkTestimonialsByIdsRequest, Testimonial } from "@/types";
 
 /**
  * Get testimonials for bulk export by comma-separated IDs

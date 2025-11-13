@@ -40,6 +40,9 @@ export function DataTablePagination<TData>({
   pageSizeOptions = [10, 20, 30, 40, 50], // Default options if none provided
   size = 'default'
 }: DataTablePaginationProps<TData>) {
+  // Convert 'lg' size to 'default' for SelectTrigger since it only accepts 'sm' | 'default'
+  const selectSize = size === 'lg' ? 'default' : size;
+
   // Local state for page size to ensure immediate UI updates
   const [localPageSize, setLocalPageSize] = useState(table.getState().pagination.pageSize);
 

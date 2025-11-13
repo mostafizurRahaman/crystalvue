@@ -8,7 +8,7 @@ import { Skeleton } from "../ui/skeleton";
 import { uploadToCloudinaryDirect, validateFile } from "@/lib/cloudinary-utils";
 import { deleteCloudinaryImage } from "@/api/upload/delete-image";
 
-// ✅ Image metadata interface
+// Image metadata interface
 export interface ImageMetadata {
   id: string;
   url: string;
@@ -87,7 +87,7 @@ export function MultipleImageUpload({
     const tempImage: ImageMetadata = {
       id: tempId,
       url: URL.createObjectURL(file),
-      publicId: "",
+      publicId: tempId,
       altText: file.name,
       width: 0,
       height: 0,
@@ -115,20 +115,21 @@ export function MultipleImageUpload({
       if (result.success && result.url && result.publicId) {
         // Update with real data
         setUploadedImages((prev) => {
-          const newImages = prev.map((img) =>
-            img.id === tempId
-              ? {
-                  id: result.publicId || tempId,
-                  url: result.url!,
-                  publicId: result.publicId || tempId,
-                  altText: file.name,
-                  width: result.width,
-                  height: result.height,
-                  format: result.format,
-                  size: result.size,
-                  folder: folder,
-                } as ImageMetadata
-              : img
+          const newImages = prev.map(
+            (img): ImageMetadata =>
+              img.id === tempId
+                ? {
+                    id: result.publicId!,
+                    url: result.url!,
+                    publicId: result.publicId!,
+                    altText: file.name,
+                    width: result.width,
+                    height: result.height,
+                    format: result.format,
+                    size: result.size,
+                    folder: folder,
+                  }
+                : img
           );
 
           // Notify parent
@@ -327,14 +328,15 @@ export function MultipleImageUpload({
                           const img = e.target as HTMLImageElement;
                           if (!image.width || !image.height) {
                             setUploadedImages((prev) =>
-                              prev.map((prevImage) =>
-                                prevImage.id === image.id
-                                  ? {
-                                      ...prevImage,
-                                      width: img.naturalWidth,
-                                      height: img.naturalHeight,
-                                    }
-                                  : prevImage
+                              prev.map(
+                                (prevImage): ImageMetadata =>
+                                  prevImage.id === image.id
+                                    ? {
+                                        ...prevImage,
+                                        width: img.naturalWidth,
+                                        height: img.naturalHeight,
+                                      }
+                                    : prevImage
                               )
                             );
                           }
