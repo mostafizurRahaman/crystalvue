@@ -4,6 +4,7 @@ import { allRoutes } from "./app/routes";
 import { notFoundHandler } from "./app/middlewares";
 import globalErrorHandler from "./app/middlewares/global-error-handler";
 import { db } from "./app/db";
+import { env } from "./app/configs/env";
 
 // create an app :
 const app: Application = express();
@@ -12,13 +13,9 @@ const app: Application = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:3002",
-    ],
+    origin: [...env.CORS_ORIGINS.map((origin) => origin.trim())],
     credentials: true,
-  }),
+  })
 );
 app.use(express.urlencoded({ extended: true }));
 
