@@ -20,10 +20,9 @@ interface UseGetMeResult {
 
 export const useGetMe = (options: UseGetMeOptions = {}): UseGetMeResult => {
   const [user, setUser] = useState<IUser | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-
   const { immediate = true, onSuccess, onError } = options;
+  const [loading, setLoading] = useState(immediate); // Start with loading true if immediate
+  const [error, setError] = useState<Error | null>(null);
 
   const fetchUser = useCallback(async () => {
     setLoading(true);
@@ -41,7 +40,10 @@ export const useGetMe = (options: UseGetMeOptions = {}): UseGetMeResult => {
         onError?.(error);
       }
     } catch (err) {
-      const error = err instanceof Error ? err : new Error("Failed to fetch user information");
+      const error =
+        err instanceof Error
+          ? err
+          : new Error("Failed to fetch user information");
       setError(error);
       setUser(null);
       onError?.(error);
