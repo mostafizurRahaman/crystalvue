@@ -65,7 +65,8 @@ export function DeleteContactUsPopup({
       REJECTED: "text-red-600 bg-red-50",
     };
     return (
-      statusColors[status?.toUpperCase() as keyof typeof statusColors] || statusColors.PENDING
+      statusColors[status?.toUpperCase() as keyof typeof statusColors] ||
+      statusColors.PENDING
     );
   };
 
@@ -75,7 +76,9 @@ export function DeleteContactUsPopup({
       APPROVED: "Approved",
       REJECTED: "Rejected",
     };
-    return statusLabels[status?.toUpperCase() as keyof typeof statusLabels] || status;
+    return (
+      statusLabels[status?.toUpperCase() as keyof typeof statusLabels] || status
+    );
   };
 
   return (

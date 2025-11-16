@@ -54,4 +54,6 @@ export interface GetAllContactUsRequest {
 
 export interface UpdateStatusRequest {
   status: "PENDING" | "APPROVED" | "REJECTED";
+  reason?: string;
+  adminNotes?: string;
 }

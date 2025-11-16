@@ -19,18 +19,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { updateContactUsStatus } from "@/api/contact-us";
 import { ContactUsExportData } from "./columns";
+import type { UpdateStatusRequest } from "@/api/contact-us/types";
 
-const updateStatusSchema = z.object({
-  status: z.enum(["PENDING", "APPROVED", "REJECTED"], {
-    message: "Please select a status",
-  }),
-});
+const updateStatusSchema = z
+  .object({
+    status: z.enum(["PENDING", "APPROVED", "REJECTED"], {
+      message: "Please select a status",
+    }),
+    reason: z
+      .string()
+      .max(500, "Reason too long (max 500 characters)")
+      .trim()
+      .optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.status === "REJECTED" && !data.reason) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "Reason is required when status is REJECTED",
+      path: ["reason"],
+    }
+  );
 
 type UpdateStatusFormData = z.infer<typeof updateStatusSchema>;
 
@@ -53,7 +73,12 @@ export function UpdateStatusPopup({
   const form = useForm<UpdateStatusFormData>({
     resolver: zodResolver(updateStatusSchema),
     defaultValues: {
-      status: (inquiry.status?.toUpperCase() as "PENDING" | "APPROVED" | "REJECTED") || "PENDING",
+      status:
+        (inquiry.status?.toUpperCase() as
+          | "PENDING"
+          | "APPROVED"
+          | "REJECTED") || "PENDING",
+      reason: undefined,
     },
     mode: "onSubmit",
   });
@@ -61,7 +86,12 @@ export function UpdateStatusPopup({
   useEffect(() => {
     if (inquiry && open) {
       form.reset({
-        status: (inquiry.status?.toUpperCase() as "PENDING" | "APPROVED" | "REJECTED") || "PENDING",
+        status:
+          (inquiry.status?.toUpperCase() as
+            | "PENDING"
+            | "APPROVED"
+            | "REJECTED") || "PENDING",
+        reason: undefined,
       });
     }
   }, [inquiry, open, form]);
@@ -74,8 +104,16 @@ export function UpdateStatusPopup({
 
     setIsSubmitting(true);
     try {
-      await updateContactUsStatus(inquiry.id, data);
-      const statusLabel = statusOptions.find(opt => opt.value === data.status)?.label || data.status;
+      // Only include reason if it has a value
+      const payload: UpdateStatusRequest = {
+        status: data.status,
+        ...(data.reason && { reason: data.reason }),
+      };
+
+      await updateContactUsStatus(inquiry.id, payload);
+      const statusLabel =
+        statusOptions.find((opt) => opt.value === data.status)?.label ||
+        data.status;
       toast.success(`Status updated to: ${statusLabel}`);
       onOpenChange(false);
       onSuccess?.();
@@ -95,7 +133,6 @@ export function UpdateStatusPopup({
     { value: "APPROVED", label: "Approved", color: "text-green-600" },
     { value: "REJECTED", label: "Rejected", color: "text-red-600" },
   ];
-
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -138,6 +175,23 @@ export function UpdateStatusPopup({
                 </Typography>
               )}
             </div>
+
+            {form.watch("status") === "REJECTED" && (
+              <div className="space-y-2">
+                <Typography variant="Regular_H6">Reason *</Typography>
+                <Textarea
+                  {...form.register("reason")}
+                  placeholder="Enter reason for rejection..."
+                  rows={4}
+                  className="resize-none"
+                />
+                {form.formState.errors.reason && (
+                  <Typography variant="Regular_H7" className="text-red-500">
+                    {form.formState.errors.reason.message}
+                  </Typography>
+                )}
+              </div>
+            )}
 
             <DialogFooter>
               <Button

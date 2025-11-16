@@ -115,8 +115,7 @@ export const getColumns = (
           APPROVED: { status: "approved", label: "Approved" },
           REJECTED: { status: "rejected", label: "Rejected" },
         };
-        const statusConfig =
-          statusMap[status] || statusMap.PENDING;
+        const statusConfig = statusMap[status] || statusMap.PENDING;
         return <StatusChips status={statusConfig.status} />;
       },
       size: 120,
