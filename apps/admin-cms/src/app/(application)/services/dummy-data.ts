@@ -1,0 +1,148 @@
+type Order = {
+  id: number;
+  orderId: string;
+  manufacturerName: string;
+  retailerName: string;
+  productDetails: string;
+  category: string;
+  value: number;
+  orderDate: string;
+  quantity: number;
+  paymentStatus: 'Paid' | 'Pending' ;
+  orderStatus: 'New Order' | 'Approved';
+};
+
+export const orders: Order[] = [
+  {
+    id: 1,
+    orderId: 'ORD10231',
+    manufacturerName: 'StrideCraft Footwear',
+    retailerName: 'SolePoint Retailers',
+    productDetails: "Men's Formal Shoes +1 More",
+    category: 'Footwear',
+    value: 28800,
+    orderDate: '2024-03-15',
+    quantity: 24,
+    paymentStatus: 'Paid',
+    orderStatus: 'Approved',
+  },
+  {
+    id: 2,
+    orderId: 'ORD10232',
+    manufacturerName: 'SoleMakers India',
+    retailerName: 'Urban Footwear Hub',
+    productDetails: "Women's Cotton Kurti",
+    category: 'Apparels',
+    value: 21600,
+    orderDate: '2024-03-15',
+    quantity: 18,
+    paymentStatus: 'Pending',
+    orderStatus: 'New Order',
+  },
+  {
+    id: 3,
+    orderId: 'ORD10233',
+    manufacturerName: 'Classic Walk Industries',
+    retailerName: 'StepRight Mart',
+    productDetails: "Kids' School Shoes +2 More",
+    category: 'Footwear',
+    value: 43200,
+    orderDate: '2024-09-09',
+    quantity: 36,
+    paymentStatus: 'Paid',
+    orderStatus: 'Approved',
+  },
+  {
+    id: 4,
+    orderId: 'ORD10234',
+    manufacturerName: 'NextStep Footwear',
+    retailerName: 'Classic Sole Traders',
+    productDetails: 'Unisex Casual Slip-ons',
+    category: 'Footwear',
+    value: 36000,
+    orderDate: '2024-01-30',
+    quantity: 30,
+    paymentStatus: 'Paid',
+    orderStatus: 'New Order',
+  },
+  {
+    id: 5,
+    orderId: 'ORD10235',
+    manufacturerName: 'TrueFit Leathers & Shoes',
+    retailerName: 'Feet First Outlet',
+    productDetails: 'PU Sole Sandals +3 More',
+    category: 'Footwear',
+    value: 48000,
+    orderDate: '2024-08-12',
+    quantity: 40,
+    paymentStatus: 'Paid',
+    orderStatus: 'Approved',
+  },
+  {
+    id: 6,
+    orderId: 'ORD10236',
+    manufacturerName: 'Om SoleTech Industries',
+    retailerName: 'WalkOn Shoes',
+    productDetails: 'Synthetic Sports Shoes',
+    category: 'Footwear',
+    value: 24000,
+    orderDate: '2024-02-05',
+    quantity: 20,
+    paymentStatus: 'Paid',
+    orderStatus: 'New Order',
+  },
+  {
+    id: 7,
+    orderId: 'ORD10237',
+    manufacturerName: 'JayMax Shoe Manufacturers',
+    retailerName: 'ShoeCraft Corner',
+    productDetails: 'Casual Trousers',
+    category: 'Apparels',
+    value: 38400,
+    orderDate: '2024-04-18',
+    quantity: 32,
+    paymentStatus: 'Paid',
+    orderStatus: 'Approved',
+  },
+  {
+    id: 8,
+    orderId: 'ORD10238',
+    manufacturerName: 'FeetFlex India',
+    retailerName: 'SmartFit Distributors',
+    productDetails: "Kids' Sneakers",
+    category: 'Footwear',
+    value: 28800,
+    orderDate: '2024-12-27',
+    quantity: 24,
+    paymentStatus: 'Paid',
+    orderStatus: 'New Order',
+  },
+  {
+    id: 9,
+    orderId: 'ORD10239',
+    manufacturerName: 'Urban Tread Works',
+    retailerName: 'NextStep Retail India',
+    productDetails: 'Safety Shoes +4 More',
+    category: 'Footwear',
+    value: 19200,
+    orderDate: '2024-06-11',
+    quantity: 16,
+    paymentStatus: 'Paid',
+    orderStatus: 'Approved',
+  },
+  {
+    id: 10,
+    orderId: 'ORD102310',
+    manufacturerName: 'AlphaStep Footwear',
+    retailerName: 'Premium Footwear Hub',
+    productDetails: 'Leather Loafers',
+    category: 'Footwear',
+    value: 33600,
+    orderDate: '2024-11-22',
+    quantity: 28,
+    paymentStatus: 'Pending',
+    orderStatus: 'New Order',
+  },
+];
+
+export type { Order };

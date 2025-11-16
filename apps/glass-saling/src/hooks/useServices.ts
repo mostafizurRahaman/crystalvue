@@ -1,0 +1,15 @@
+import { useQuery } from "@tanstack/react-query";
+import {
+  getAllServices,
+  GetAllServicesParams,
+  GetAllServicesResponse,
+} from "@/api";
+
+export const useServices = (params?: GetAllServicesParams) => {
+  return useQuery<GetAllServicesResponse, Error>({
+    queryKey: ["services", params],
+    queryFn: () => getAllServices(params),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    retry: 3,
+  });
+};

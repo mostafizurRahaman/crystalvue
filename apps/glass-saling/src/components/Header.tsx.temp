@@ -1,0 +1,97 @@
+"use client";
+import { Fragment } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import IcoLogo from "@/assets/icons/ico-logo";
+
+const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      // Header becomes sticky after scrolling 100px
+      setIsScrolled(scrollTop > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about-us" },
+    { name: "Services", path: "/all-categories" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Contact", path: "/contact-us" },
+  ];
+
+  const isActive = (path: string) => pathname === path;
+
+  return (
+    <Fragment>
+      {/* Spacer for fixed header - only visible when header is sticky */}
+      {isScrolled && (
+        <div className="h-20" /> {/* Height matches header height */}
+      )}
+      <header 
+        className={`glass-card transition-all duration-300 ${
+          isScrolled 
+            ? 'fixed top-0 left-0 right-0 z-50 shadow-lg' 
+            : 'relative'
+        }`}
+      >
+        <nav className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="">
+                <IcoLogo className="h-[70px]" />
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <Link
+                href="/contact-us"
+                className="gradient-primary text-white border-0 hover:opacity-90 transition-opacity"
+              >
+                Get Free Quote
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button className="md:hidden p-2" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X /> : <Menu />}
+            </button>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isOpen && (
+            <div className="md:hidden mt-4 pb-4 space-y-4 animate-slide-up">
+              <Link href="/contact-us" className="flex-1">
+                <Button className="w-full gradient-primary text-white border-0">
+                  Get Free Quote
+                </Button>
+              </Link>
+            </div>
+          )}
+        </nav>
+      </header>
+    </Fragment>
+  );
+};
+
+export default Header;

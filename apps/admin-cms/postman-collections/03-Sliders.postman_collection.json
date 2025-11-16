@@ -1,0 +1,623 @@
+{
+  "info": {
+    "name": "Sliders Module",
+    "description": "API endpoints for hero slider management including CRUD operations, reordering, and batch operations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Sliders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sliders/get-all?page=1&limit=10&search=&sort_by=created_at&sort_order=desc&active_only=false",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "get-all"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number (default: 1)"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Items per page (default: 10)"
+            },
+            {
+              "key": "search",
+              "value": "",
+              "description": "Search across title, subtitle, buttonText"
+            },
+            {
+              "key": "from_date",
+              "value": "",
+              "description": "Start date filter (ISO format)"
+            },
+            {
+              "key": "to_date",
+              "value": "",
+              "description": "End date filter (ISO format)"
+            },
+            {
+              "key": "sort_by",
+              "value": "created_at",
+              "description": "Sort field (created_at, updated_at, orderNumber, title, isActive)"
+            },
+            {
+              "key": "sort_order",
+              "value": "desc",
+              "description": "Sort order (asc, desc)"
+            },
+            {
+              "key": "active_only",
+              "value": "false",
+              "description": "Filter active sliders only (true/false)"
+            }
+          ]
+        },
+        "description": "Get all sliders with filtering, sorting, and pagination"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sliders/get-all?page=1&limit=10&search=&sort_by=created_at&sort_order=desc&active_only=false",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "get-all"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "from_date",
+                  "value": ""
+                },
+                {
+                  "key": "to_date",
+                  "value": ""
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                },
+                {
+                  "key": "active_only",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Sliders retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-here\",\n      \"title\": \"Welcome to Our Service\",\n      \"subtitle\": \"Professional solutions for your needs\",\n      \"buttonText\": \"Get Started\",\n      \"buttonUrl\": \"https://example.com/contact\",\n      \"image\": {\n        \"url\": \"https://example.com/slider-image.jpg\",\n        \"publicId\": \"slider-image-id\",\n        \"altText\": \"Hero slider image\"\n      },\n      \"orderNumber\": 1,\n      \"isActive\": true,\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 10,\n    \"total_pages\": 5,\n    \"total_items\": 50\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Slider by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sliders/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "slider-uuid-here",
+              "description": "Slider ID"
+            }
+          ]
+        },
+        "description": "Get single slider by ID"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sliders/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "slider-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Slider retrieved successfully\",\n  \"data\": {\n    \"id\": \"slider-uuid-here\",\n    \"title\": \"Welcome to Our Service\",\n    \"subtitle\": \"Professional solutions for your needs\",\n    \"buttonText\": \"Get Started\",\n    \"buttonUrl\": \"https://example.com/contact\",\n    \"image\": {\n      \"url\": \"https://example.com/slider-image.jpg\",\n      \"publicId\": \"slider-image-id\",\n      \"altText\": \"Hero slider image\"\n    },\n    \"orderNumber\": 1,\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Sliders Batch (Query)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sliders/batch?ids=1,2,3",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "batch"],
+          "query": [
+            {
+              "key": "ids",
+              "value": "1,2,3",
+              "description": "Comma-separated slider IDs"
+            }
+          ]
+        },
+        "description": "Get multiple sliders by IDs using query parameters"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sliders/batch?ids=1,2,3",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "batch"],
+              "query": [
+                {
+                  "key": "ids",
+                  "value": "1,2,3"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Sliders retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-1\",\n      \"title\": \"Slider 1\",\n      \"subtitle\": \"Description 1\",\n      \"buttonText\": \"Button 1\",\n      \"buttonUrl\": \"https://example.com/1\",\n      \"orderNumber\": 1,\n      \"isActive\": true\n    },\n    {\n      \"id\": \"uuid-2\",\n      \"title\": \"Slider 2\",\n      \"subtitle\": \"Description 2\",\n      \"buttonText\": \"Button 2\",\n      \"buttonUrl\": \"https://example.com/2\",\n      \"orderNumber\": 2,\n      \"isActive\": true\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Sliders Batch (Body)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ids\": [1, 2, 3, 4, 5]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sliders/batch",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "batch"]
+        },
+        "description": "Get multiple sliders by IDs using request body"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [1, 2, 3, 4, 5]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sliders/batch",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "batch"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Sliders retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-1\",\n      \"title\": \"Slider 1\",\n      \"subtitle\": \"Description 1\",\n      \"buttonText\": \"Button 1\",\n      \"buttonUrl\": \"https://example.com/1\",\n      \"orderNumber\": 1,\n      \"isActive\": true\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Slider",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"New Hero Slider\",\n  \"subtitle\": \"Amazing subtitle for the slider\",\n  \"buttonText\": \"Learn More\",\n  \"buttonUrl\": \"https://example.com/learn-more\",\n  \"image\": {\n    \"url\": \"https://example.com/new-slider.jpg\",\n    \"publicId\": \"new-slider-id\",\n    \"folder\": \"app/sliders\",\n    \"altText\": \"New hero slider image\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"format\": \"jpg\",\n    \"size\": 500000\n  },\n  \"orderNumber\": 1,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sliders/create",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "create"]
+        },
+        "description": "Create a new slider (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Hero Slider\",\n  \"subtitle\": \"Amazing subtitle for the slider\",\n  \"buttonText\": \"Learn More\",\n  \"buttonUrl\": \"https://example.com/learn-more\",\n  \"image\": {\n    \"url\": \"https://example.com/new-slider.jpg\",\n    \"publicId\": \"new-slider-id\",\n    \"folder\": \"app/sliders\",\n    \"altText\": \"New hero slider image\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"format\": \"jpg\",\n    \"size\": 500000\n  },\n  \"orderNumber\": 1,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sliders/create",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "create"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Slider created successfully\",\n  \"data\": {\n    \"id\": \"new-slider-uuid\",\n    \"title\": \"New Hero Slider\",\n    \"subtitle\": \"Amazing subtitle for the slider\",\n    \"buttonText\": \"Learn More\",\n    \"buttonUrl\": \"https://example.com/learn-more\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/new-slider.jpg\",\n      \"publicId\": \"new-slider-id\",\n      \"folder\": \"app/sliders\",\n      \"altText\": \"New hero slider image\",\n      \"width\": 1920,\n      \"height\": 1080,\n      \"format\": \"jpg\",\n      \"size\": 500000\n    },\n    \"orderNumber\": 1,\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Slider",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Hero Slider\",\n  \"subtitle\": \"Updated subtitle\",\n  \"buttonText\": \"Updated Button\",\n  \"buttonUrl\": \"https://example.com/updated\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-slider.jpg\",\n    \"publicId\": \"updated-slider-id\",\n    \"folder\": \"app/sliders\",\n    \"altText\": \"Updated hero slider image\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"format\": \"jpg\",\n    \"size\": 600000\n  },\n  \"orderNumber\": 2,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sliders/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "slider-uuid-here",
+              "description": "Slider ID"
+            }
+          ]
+        },
+        "description": "Update slider by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Hero Slider\",\n  \"subtitle\": \"Updated subtitle\",\n  \"buttonText\": \"Updated Button\",\n  \"buttonUrl\": \"https://example.com/updated\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-slider.jpg\",\n    \"publicId\": \"updated-slider-id\",\n    \"folder\": \"app/sliders\",\n    \"altText\": \"Updated hero slider image\",\n    \"width\": 1920,\n    \"height\": 1080,\n    \"format\": \"jpg\",\n    \"size\": 600000\n  },\n  \"orderNumber\": 2,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sliders/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "slider-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Slider updated successfully\",\n  \"data\": {\n    \"id\": \"slider-uuid-here\",\n    \"title\": \"Updated Hero Slider\",\n    \"subtitle\": \"Updated subtitle\",\n    \"buttonText\": \"Updated Button\",\n    \"buttonUrl\": \"https://example.com/updated\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-slider.jpg\",\n      \"publicId\": \"updated-slider-id\",\n      \"folder\": \"app/sliders\",\n      \"altText\": \"Updated hero slider image\",\n      \"width\": 1920,\n      \"height\": 1080,\n      \"format\": \"jpg\",\n      \"size\": 600000\n    },\n    \"orderNumber\": 2,\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Slider",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/sliders/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "slider-uuid-here",
+              "description": "Slider ID"
+            }
+          ]
+        },
+        "description": "Delete slider by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/sliders/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "slider-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Slider deleted successfully\",\n  \"data\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Bulk Delete Sliders",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ids\": [\"slider-uuid-1\", \"slider-uuid-2\", \"slider-uuid-3\"]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sliders/bulk-delete",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "bulk-delete"]
+        },
+        "description": "Delete multiple sliders by IDs (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\"slider-uuid-1\", \"slider-uuid-2\", \"slider-uuid-3\"]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sliders/bulk-delete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "bulk-delete"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Sliders deleted successfully\",\n  \"data\": {\n    \"deletedCount\": 3,\n    \"deletedIds\": [\"slider-uuid-1\", \"slider-uuid-2\", \"slider-uuid-3\"]\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Reorder Sliders",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sliderOrders\": [\n    {\n      \"id\": \"slider-uuid-1\",\n      \"orderNumber\": 1\n    },\n    {\n      \"id\": \"slider-uuid-2\",\n      \"orderNumber\": 2\n    },\n    {\n      \"id\": \"slider-uuid-3\",\n      \"orderNumber\": 3\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/sliders/reorder",
+          "host": ["{{base_url}}"],
+          "path": ["api", "sliders", "reorder"]
+        },
+        "description": "Reorder sliders by updating their order numbers (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sliderOrders\": [\n    {\n      \"id\": \"slider-uuid-1\",\n      \"orderNumber\": 1\n    },\n    {\n      \"id\": \"slider-uuid-2\",\n      \"orderNumber\": 2\n    },\n    {\n      \"id\": \"slider-uuid-3\",\n      \"orderNumber\": 3\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/sliders/reorder",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sliders", "reorder"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Sliders reordered successfully\",\n  \"data\": [\n    {\n      \"id\": \"slider-uuid-1\",\n      \"orderNumber\": 1\n    },\n    {\n      \"id\": \"slider-uuid-2\",\n      \"orderNumber\": 2\n    },\n    {\n      \"id\": \"slider-uuid-3\",\n      \"orderNumber\": 3\n    }\n  ]\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

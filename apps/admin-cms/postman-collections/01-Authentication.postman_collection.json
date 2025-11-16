@@ -1,0 +1,169 @@
+{
+  "info": {
+    "name": "Authentication Module",
+    "description": "API endpoints for user authentication including sign-up, sign-in, and access token management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User Sign Up",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"securePassword123\",\n  \"profileUrl\": \"https://example.com/profile.jpg\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/sign-up",
+          "host": ["{{base_url}}"],
+          "path": ["api", "auth", "sign-up"]
+        },
+        "description": "Register a new user account"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"securePassword123\",\n  \"profileUrl\": \"https://example.com/profile.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/sign-up",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "sign-up"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"User created successfully\",\n  \"data\": {\n    \"id\": \"uuid-here\",\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"profileUrl\": \"https://example.com/profile.jpg\",\n    \"role\": \"user\",\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "User Sign In",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"securePassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/sign-in",
+          "host": ["{{base_url}}"],
+          "path": ["api", "auth", "sign-in"]
+        },
+        "description": "Authenticate user and get access token"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john.doe@example.com\",\n  \"password\": \"securePassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/sign-in",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "sign-in"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Login successful\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"uuid-here\",\n      \"name\": \"John Doe\",\n      \"email\": \"john.doe@example.com\",\n      \"profileUrl\": \"https://example.com/profile.jpg\",\n      \"role\": \"user\",\n      \"isActive\": true\n    },\n    \"accessToken\": \"jwt-token-here\",\n    \"refreshToken\": \"refresh-token-here\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Access Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refreshToken\": \"refresh-token-here\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/auth/get-access-token",
+          "host": ["{{base_url}}"],
+          "path": ["api", "auth", "get-access-token"]
+        },
+        "description": "Get new access token using refresh token"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"refresh-token-here\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/get-access-token",
+              "host": ["{{base_url}}"],
+              "path": ["api", "auth", "get-access-token"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Access token generated successfully\",\n  \"data\": {\n    \"accessToken\": \"new-jwt-token-here\",\n    \"refreshToken\": \"new-refresh-token-here\"\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}

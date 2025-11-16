@@ -1,0 +1,467 @@
+{
+  "info": {
+    "name": "Services Module",
+    "description": "API endpoints for service management including CRUD operations, filtering, and export functionality",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Services",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/services?page=1&limit=10&search=&sort_by=created_at&sort_order=desc&is_active_only=false&is_premium_only=false&parent_category_id=&min_price=&max_price=",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page number (default: 1)"
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "description": "Items per page (default: 10)"
+            },
+            {
+              "key": "search",
+              "value": "",
+              "description": "Search term for name, tagline, or description"
+            },
+            {
+              "key": "sort_by",
+              "value": "created_at",
+              "description": "Sort field (created_at, updated_at, name, price)"
+            },
+            {
+              "key": "sort_order",
+              "value": "desc",
+              "description": "Sort order (asc, desc)"
+            },
+            {
+              "key": "is_active_only",
+              "value": "false",
+              "description": "Filter active services only (true/false)"
+            },
+            {
+              "key": "is_premium_only",
+              "value": "false",
+              "description": "Filter premium services only (true/false)"
+            },
+            {
+              "key": "parent_category_id",
+              "value": "",
+              "description": "Filter by parent category ID"
+            },
+            {
+              "key": "min_price",
+              "value": "",
+              "description": "Minimum price filter"
+            },
+            {
+              "key": "max_price",
+              "value": "",
+              "description": "Maximum price filter"
+            }
+          ]
+        },
+        "description": "Get all services with filtering, sorting, and pagination"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/services?page=1&limit=10&search=&sort_by=created_at&sort_order=desc&is_active_only=false&is_premium_only=false&parent_category_id=&min_price=&max_price=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": ""
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                },
+                {
+                  "key": "is_active_only",
+                  "value": "false"
+                },
+                {
+                  "key": "is_premium_only",
+                  "value": "false"
+                },
+                {
+                  "key": "parent_category_id",
+                  "value": ""
+                },
+                {
+                  "key": "min_price",
+                  "value": ""
+                },
+                {
+                  "key": "max_price",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Services retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-here\",\n      \"name\": \"Phone Screen Repair\",\n      \"tagline\": \"Professional phone screen repair services\",\n      \"description\": \"We provide high-quality phone screen repair services for all major brands.\",\n      \"image\": {\n        \"url\": \"https://example.com/service-image.jpg\",\n        \"publicId\": \"service-image-id\",\n        \"altText\": \"Phone screen repair service\"\n      },\n      \"price\": 75.00,\n      \"isPremium\": false,\n      \"isActive\": true,\n      \"parentCategory\": {\n        \"id\": \"category-uuid\",\n        \"name\": \"Electronics Repair\"\n      },\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ],\n  \"pagination\": {\n    \"page\": 1,\n    \"limit\": 10,\n    \"total_pages\": 5,\n    \"total_items\": 50\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Service Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/services/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "service-uuid-here",
+              "description": "Service ID"
+            }
+          ]
+        },
+        "description": "Get single service details by ID"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/services/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "service-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service retrieved successfully\",\n  \"data\": {\n    \"id\": \"service-uuid-here\",\n    \"name\": \"Phone Screen Repair\",\n    \"tagline\": \"Professional phone screen repair services\",\n    \"description\": \"We provide high-quality phone screen repair services for all major brands.\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/service-image.jpg\",\n      \"publicId\": \"service-image-id\",\n      \"folder\": \"app/services\",\n      \"altText\": \"Phone screen repair service\",\n      \"width\": 400,\n      \"height\": 300,\n      \"format\": \"jpg\",\n      \"size\": 150000\n    },\n    \"price\": 75.00,\n    \"isPremium\": false,\n    \"isActive\": true,\n    \"parentCategory\": {\n      \"id\": \"category-uuid\",\n      \"name\": \"Electronics Repair\",\n      \"tagline\": \"Professional electronics repair services\"\n    },\n    \"addons\": [\n      {\n        \"id\": \"addon-uuid-1\",\n        \"text\": \"Express service (24 hours)\",\n        \"price\": 25.00\n      },\n      {\n        \"id\": \"addon-uuid-2\",\n        \"text\": \"Extended warranty\",\n        \"price\": 15.00\n      }\n    ],\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Service",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"parentCategoryId\": \"category-uuid-here\",\n  \"name\": \"New Service\",\n  \"tagline\": \"Professional new service\",\n  \"description\": \"Comprehensive new service to meet all your requirements.\",\n  \"image\": {\n    \"url\": \"https://example.com/new-service.jpg\",\n    \"publicId\": \"new-service-id\",\n    \"folder\": \"app/services\",\n    \"altText\": \"New service image\",\n    \"width\": 400,\n    \"height\": 300,\n    \"format\": \"jpg\",\n    \"size\": 150000\n  },\n  \"price\": 100.00,\n  \"isPremium\": false,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/services",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services"]
+        },
+        "description": "Create a new service (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentCategoryId\": \"category-uuid-here\",\n  \"name\": \"New Service\",\n  \"tagline\": \"Professional new service\",\n  \"description\": \"Comprehensive new service to meet all your requirements.\",\n  \"image\": {\n    \"url\": \"https://example.com/new-service.jpg\",\n    \"publicId\": \"new-service-id\",\n    \"folder\": \"app/services\",\n    \"altText\": \"New service image\",\n    \"width\": 400,\n    \"height\": 300,\n    \"format\": \"jpg\",\n    \"size\": 150000\n  },\n  \"price\": 100.00,\n  \"isPremium\": false,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/services",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service created successfully\",\n  \"data\": {\n    \"id\": \"new-service-uuid\",\n    \"name\": \"New Service\",\n    \"tagline\": \"Professional new service\",\n    \"description\": \"Comprehensive new service to meet all your requirements.\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/new-service.jpg\",\n      \"publicId\": \"new-service-id\",\n      \"folder\": \"app/services\",\n      \"altText\": \"New service image\",\n      \"width\": 400,\n      \"height\": 300,\n      \"format\": \"jpg\",\n      \"size\": 150000\n    },\n    \"price\": 100.00,\n    \"isPremium\": false,\n    \"isActive\": true,\n    \"parentCategory\": {\n      \"id\": \"category-uuid-here\",\n      \"name\": \"Electronics Repair\"\n    },\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Service",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Service\",\n  \"tagline\": \"Updated professional service\",\n  \"description\": \"Updated comprehensive service to meet all your requirements.\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-service.jpg\",\n    \"publicId\": \"updated-service-id\",\n    \"folder\": \"app/services\",\n    \"altText\": \"Updated service image\",\n    \"width\": 400,\n    \"height\": 300,\n    \"format\": \"jpg\",\n    \"size\": 160000\n  },\n  \"price\": 120.00,\n  \"isPremium\": true,\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/services/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "service-uuid-here",
+              "description": "Service ID"
+            }
+          ]
+        },
+        "description": "Update service by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Service\",\n  \"tagline\": \"Updated professional service\",\n  \"description\": \"Updated comprehensive service to meet all your requirements.\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-service.jpg\",\n    \"publicId\": \"updated-service-id\",\n    \"folder\": \"app/services\",\n    \"altText\": \"Updated service image\",\n    \"width\": 400,\n    \"height\": 300,\n    \"format\": \"jpg\",\n    \"size\": 160000\n  },\n  \"price\": 120.00,\n  \"isPremium\": true,\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/services/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "service-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service updated successfully\",\n  \"data\": {\n    \"id\": \"service-uuid-here\",\n    \"name\": \"Updated Service\",\n    \"tagline\": \"Updated professional service\",\n    \"description\": \"Updated comprehensive service to meet all your requirements.\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-service.jpg\",\n      \"publicId\": \"updated-service-id\",\n      \"folder\": \"app/services\",\n      \"altText\": \"Updated service image\",\n      \"width\": 400,\n      \"height\": 300,\n      \"format\": \"jpg\",\n      \"size\": 160000\n    },\n    \"price\": 120.00,\n    \"isPremium\": true,\n    \"isActive\": true,\n    \"parentCategory\": {\n      \"id\": \"category-uuid\",\n      \"name\": \"Electronics Repair\"\n    },\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Service",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/services/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "service-uuid-here",
+              "description": "Service ID"
+            }
+          ]
+        },
+        "description": "Delete service by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/services/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "service-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Service deleted successfully\",\n  \"data\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Bulk Services for Export",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/services/export?ids=uuid1,uuid2,uuid3",
+          "host": ["{{base_url}}"],
+          "path": ["api", "services", "export"],
+          "query": [
+            {
+              "key": "ids",
+              "value": "uuid1,uuid2,uuid3",
+              "description": "Comma-separated service IDs for export"
+            }
+          ]
+        },
+        "description": "Get bulk service details for export (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/services/export?ids=uuid1,uuid2,uuid3",
+              "host": ["{{base_url}}"],
+              "path": ["api", "services", "export"],
+              "query": [
+                {
+                  "key": "ids",
+                  "value": "uuid1,uuid2,uuid3"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Services retrieved for export\",\n  \"data\": [\n    {\n      \"id\": \"uuid1\",\n      \"name\": \"Phone Screen Repair\",\n      \"tagline\": \"Professional phone screen repair services\",\n      \"description\": \"We provide high-quality phone screen repair services.\",\n      \"price\": 75.00,\n      \"isPremium\": false,\n      \"isActive\": true,\n      \"parentCategory\": {\n        \"id\": \"category-uuid\",\n        \"name\": \"Electronics Repair\"\n      },\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

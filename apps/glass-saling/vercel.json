@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm rebuild lightningcss && turbo run build --filter=glass-saling",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "framework": "nextjs"
+}
