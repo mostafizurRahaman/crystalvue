@@ -75,7 +75,7 @@ export function DeleteContactUsPopup({
       APPROVED: "Approved",
       REJECTED: "Rejected",
     };
-    return statusLabels[status as keyof typeof statusLabels] || status;
+    return statusLabels[status?.toUpperCase() as keyof typeof statusLabels] || status;
   };
 
   return (
