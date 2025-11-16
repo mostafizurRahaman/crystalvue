@@ -1,0 +1,125 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        "db:generate"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "env": [
+        "NODE_ENV",
+        "NEXT_PUBLIC_*"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "^db:generate"
+      ]
+    },
+    "lint": {
+      "outputs": [],
+      "cache": true
+    },
+    "type-check": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [],
+      "cache": true
+    },
+    "clean": {
+      "cache": false
+    },
+    "format": {
+      "outputs": [],
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false,
+      "outputs": [
+        "node_modules/.prisma/**"
+      ]
+    },
+    "db:migrate": {
+      "cache": false,
+      "dependsOn": [
+        "db:generate"
+      ]
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": [
+        "db:generate"
+      ]
+    },
+    "db:push": {
+      "cache": false,
+      "dependsOn": [
+        "db:generate"
+      ]
+    },
+    "db:reset": {
+      "cache": false
+    },
+    "db:deploy": {
+      "cache": false,
+      "dependsOn": [
+        "db:generate"
+      ]
+    },
+    "start": {
+      "dependsOn": [
+        "build"
+      ],
+      "cache": false,
+      "persistent": true
+    },
+    "build:check": {
+      "cache": true,
+      "outputs": []
+    },
+    "lint:fix": {
+      "cache": false,
+      "outputs": []
+    },
+    "lint:check": {
+      "cache": true,
+      "outputs": []
+    },
+    "format:check": {
+      "cache": true,
+      "outputs": []
+    },
+    "quality-check": {
+      "dependsOn": [
+        "lint:check",
+        "type-check"
+      ],
+      "cache": true
+    },
+    "check-all": {
+      "dependsOn": [
+        "lint:check",
+        "type-check",
+        "build:check"
+      ],
+      "cache": true
+    },
+    "ci": {
+      "dependsOn": [
+        "lint:check",
+        "type-check",
+        "build"
+      ],
+      "cache": true
+    }
+  }
+}
