@@ -34,6 +34,8 @@ export function DataTableRowActions<TData extends ContactUsExportData>({
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const inquiry = row.original;
+  const currentStatus = (inquiry.status?.toUpperCase() as string) || "PENDING";
+  const isRejected = currentStatus === "REJECTED";
 
   return (
     <>
@@ -49,13 +51,15 @@ export function DataTableRowActions<TData extends ContactUsExportData>({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => setShowUpdateStatus(true)}
-            className="cursor-pointer"
-          >
-            <Edit className="mr-2 h-4 w-4" />
-            Update Status
-          </DropdownMenuItem>
+          {!isRejected && (
+            <DropdownMenuItem
+              onClick={() => setShowUpdateStatus(true)}
+              className="cursor-pointer"
+            >
+              <Edit className="mr-2 h-4 w-4" />
+              Update Status
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem
             onClick={() => setShowDeletePopup(true)}
             className="cursor-pointer text-red-600 focus:text-red-600"
@@ -66,11 +70,13 @@ export function DataTableRowActions<TData extends ContactUsExportData>({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <UpdateStatusPopup
-        open={showUpdateStatus}
-        onOpenChange={setShowUpdateStatus}
-        inquiry={inquiry}
-      />
+      {!isRejected && (
+        <UpdateStatusPopup
+          open={showUpdateStatus}
+          onOpenChange={setShowUpdateStatus}
+          inquiry={inquiry}
+        />
+      )}
 
       <DeleteContactUsPopup
         open={showDeletePopup}
