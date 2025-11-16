@@ -75,12 +75,53 @@ export const getAboutPageData = async (): Promise<AboutPageResponse> => {
   return response.data;
 };
 
+// Server-side optimized function for Next.js server components
+export const getAboutPageDataServer = async (): Promise<AboutPageResponse> => {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000/api/v1";
+
+  try {
+    const response = await fetch(`${baseUrl}/about`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Cache for 5 minutes (300 seconds)
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch about page data: ${response.statusText}`
+      );
+    }
+
+    const data: AboutPageResponse = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching about page data (server):", error);
+    // Return empty response structure
+    return {
+      success: false,
+      message: "Failed to fetch about page data",
+      data: {
+        id: 1,
+        isActive: true,
+        createdAt: "",
+        updatedAt: "",
+      },
+    };
+  }
+};
+
 export const getAboutBlocks = async (): Promise<AboutBlocksResponse> => {
-  const response = await axiosInstance.get<AboutBlocksResponse>("/about/blocks");
+  const response =
+    await axiosInstance.get<AboutBlocksResponse>("/about/blocks");
   return response.data;
 };
 
 export const getCompanyStory = async (): Promise<CompanyStoryResponse> => {
-  const response = await axiosInstance.get<CompanyStoryResponse>("/about/story");
+  const response =
+    await axiosInstance.get<CompanyStoryResponse>("/about/story");
   return response.data;
 };

@@ -46,7 +46,28 @@ export interface SettingsApiResponse {
   data: GlobalSettings;
 }
 
-// API function to get settings
+// Default settings fallback
+const defaultSettings: GlobalSettings = {
+  id: 1,
+  siteTitle: null,
+  siteDescription: null,
+  logoImage: null,
+  faviconImage: null,
+  metaImage: null,
+  contactEmail: null,
+  contactPhone: null,
+  contactWhatsApp: null,
+  officeAddress: null,
+  googleMapEmbedCode: null,
+  socialMediaLinks: null,
+  businessHours: null,
+  seoMetaTitle: null,
+  seoMetaDescription: null,
+  seoKeywords: null,
+  isActive: true,
+};
+
+// API function to get settings (works in both client and server components)
 export const getSettings = async (): Promise<GlobalSettings> => {
   try {
     const response = await axiosInstance.get<SettingsApiResponse>("/settings");
@@ -59,24 +80,40 @@ export const getSettings = async (): Promise<GlobalSettings> => {
   } catch (error) {
     console.error("Error fetching settings:", error);
     // Return default settings in case of error
-    return {
-      id: 1,
-      siteTitle: null,
-      siteDescription: null,
-      logoImage: null,
-      faviconImage: null,
-      metaImage: null,
-      contactEmail: null,
-      contactPhone: null,
-      contactWhatsApp: null,
-      officeAddress: null,
-      googleMapEmbedCode: null,
-      socialMediaLinks: null,
-      businessHours: null,
-      seoMetaTitle: null,
-      seoMetaDescription: null,
-      seoKeywords: null,
-      isActive: true,
-    };
+    return defaultSettings;
+  }
+};
+
+// Server-side optimized function for Next.js server components
+// Uses native fetch for better SSR performance and caching
+export const getSettingsServer = async (): Promise<GlobalSettings> => {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000/api/v1";
+
+  try {
+    const response = await fetch(`${baseUrl}/settings`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Cache for 5 minutes (300 seconds) - adjust as needed
+      next: { revalidate: 300 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch settings: ${response.statusText}`);
+    }
+
+    const data: SettingsApiResponse = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to fetch settings");
+    }
+
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching settings (server):", error);
+    // Return default settings in case of error
+    return defaultSettings;
   }
 };
