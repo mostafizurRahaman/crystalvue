@@ -1,6 +1,16 @@
 {
   "buildCommand": "cd ../.. && npm run db:generate && turbo run build --filter=backend",
-  "outputDirectory": "dist",
   "installCommand": "cd ../.. && npm install",
-  "framework": null
+  "framework": null,
+  "functions": {
+    "api/index.js": {
+      "runtime": "nodejs22.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ]
 }
