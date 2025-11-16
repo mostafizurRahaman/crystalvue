@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm rebuild lightningcss && turbo run build --filter=admin-cms",
+  "buildCommand": "cd ../.. && npm rebuild lightningcss && turbo run build --filter=admin-cms",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
+  "installCommand": "cd ../.. && npm install",
   "framework": "nextjs"
 }
