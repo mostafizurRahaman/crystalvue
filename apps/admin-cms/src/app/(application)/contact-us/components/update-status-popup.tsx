@@ -36,9 +36,11 @@ const getStatusTransitions = () => ({
 });
 
 // Create dynamic schema based on current status
-const createUpdateStatusSchema = (currentStatus: "PENDING" | "APPROVED" | "REJECTED") => {
+const createUpdateStatusSchema = (
+  currentStatus: "PENDING" | "APPROVED" | "REJECTED"
+) => {
   const allowedTransitions = getStatusTransitions()[currentStatus] || [];
-  
+
   return z
     .object({
       status: z.enum(["PENDING", "APPROVED", "REJECTED"] as const, {
@@ -98,10 +100,9 @@ export function UpdateStatusPopup({
   const queryClient = useQueryClient();
 
   // Get current status
-  const currentStatus = (inquiry.status?.toUpperCase() as
-    | "PENDING"
-    | "APPROVED"
-    | "REJECTED") || "PENDING";
+  const currentStatus =
+    (inquiry.status?.toUpperCase() as "PENDING" | "APPROVED" | "REJECTED") ||
+    "PENDING";
 
   // Create schema with current status validation
   const updateStatusSchema = createUpdateStatusSchema(currentStatus);
@@ -177,7 +178,9 @@ export function UpdateStatusPopup({
   // Filter available transitions based on current status
   const availableTransitions = statusTransitions[currentStatus] || [];
   const statusOptions = allStatusOptions.filter((option) =>
-    availableTransitions.includes(option.value as "PENDING" | "APPROVED" | "REJECTED")
+    availableTransitions.includes(
+      option.value as "PENDING" | "APPROVED" | "REJECTED"
+    )
   );
 
   return (
@@ -194,14 +197,26 @@ export function UpdateStatusPopup({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Typography variant="Regular_H6">Status</Typography>
-                <Typography variant="Regular_H7" className="text-muted-foreground">
-                  Current: {allStatusOptions.find(opt => opt.value === currentStatus)?.label}
+                <Typography
+                  variant="Regular_H7"
+                  className="text-muted-foreground"
+                >
+                  Current:{" "}
+                  {
+                    allStatusOptions.find((opt) => opt.value === currentStatus)
+                      ?.label
+                  }
                 </Typography>
               </div>
               {statusOptions.length === 0 ? (
                 <div className="rounded-md border border-yellow-200 bg-yellow-50 p-3">
                   <Typography variant="Regular_H7" className="text-yellow-800">
-                    No valid status transitions available from {allStatusOptions.find(opt => opt.value === currentStatus)?.label}
+                    No valid status transitions available from{" "}
+                    {
+                      allStatusOptions.find(
+                        (opt) => opt.value === currentStatus
+                      )?.label
+                    }
                   </Typography>
                 </div>
               ) : (
@@ -263,7 +278,11 @@ export function UpdateStatusPopup({
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || statusOptions.length === 0 || form.watch("status") === currentStatus}
+                disabled={
+                  isSubmitting ||
+                  statusOptions.length === 0 ||
+                  form.watch("status") === currentStatus
+                }
                 className="cursor-pointer"
               >
                 {isSubmitting ? (
