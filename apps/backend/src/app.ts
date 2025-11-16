@@ -13,17 +13,13 @@ app.use(express.json());
 // CORS configuration - environment aware
 const corsOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",").map((origin) => origin.trim())
-  : [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:3002",
-    ];
+  : ["http://localhost:3000", "http://localhost:3001", "http://localhost:3002"];
 
 app.use(
   cors({
     origin: corsOrigins,
     credentials: true,
-  }),
+  })
 );
 app.use(express.urlencoded({ extended: true }));
 
