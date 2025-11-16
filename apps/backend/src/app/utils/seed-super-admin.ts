@@ -7,8 +7,8 @@ import { env } from "../configs/env";
 export const seedSuperAdmin = async () => {
   //   superAdminPayload:
   const payload = {
-    name: "Mostafizur Rahaman",
-    email: "mostafizurrahaman0401@gmail.com",
+    name: "Glass Work",
+    email: "glasswork250@gmail.com",
 
     userStatus: "active",
     role: "superadmin",

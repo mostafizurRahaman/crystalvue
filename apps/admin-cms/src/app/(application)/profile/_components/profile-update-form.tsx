@@ -184,7 +184,7 @@ export function ProfileUpdateForm({ user, onSuccess }: ProfileUpdateFormProps) {
                         type="email"
                         placeholder="Enter your email address"
                         {...field}
-                        disabled={isLoading}
+                        disabled
                       />
                     </FormControl>
                     <FormDescription>
