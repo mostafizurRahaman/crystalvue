@@ -1,0 +1,312 @@
+{
+  "info": {
+    "name": "Testimonials Module",
+    "description": "API endpoints for testimonial management including CRUD operations for client testimonials",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Testimonials",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/testimonials",
+          "host": ["{{base_url}}"],
+          "path": ["api", "testimonials"]
+        },
+        "description": "Get all testimonials (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/testimonials",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonials"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Testimonials retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": \"uuid-here\",\n      \"name\": \"John Smith\",\n      \"message\": \"Excellent service! They fixed my phone screen in no time. Highly recommended!\",\n      \"rating\": 5,\n      \"position\": \"CEO\",\n      \"company\": \"Tech Solutions Inc.\",\n      \"image\": {\n        \"url\": \"https://example.com/testimonial-image.jpg\",\n        \"publicId\": \"testimonial-image-id\",\n        \"altText\": \"John Smith testimonial\"\n      },\n      \"isActive\": true,\n      \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Testimonial Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/testimonials/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "testimonials", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "testimonial-uuid-here",
+              "description": "Testimonial ID"
+            }
+          ]
+        },
+        "description": "Get single testimonial details by ID (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/testimonials/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonials", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "testimonial-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Testimonial retrieved successfully\",\n  \"data\": {\n    \"id\": \"testimonial-uuid-here\",\n    \"name\": \"John Smith\",\n    \"message\": \"Excellent service! They fixed my phone screen in no time. Highly recommended!\",\n    \"rating\": 5,\n    \"position\": \"CEO\",\n    \"company\": \"Tech Solutions Inc.\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/testimonial-image.jpg\",\n      \"publicId\": \"testimonial-image-id\",\n      \"folder\": \"app/testimonials\",\n      \"altText\": \"John Smith testimonial\",\n      \"width\": 200,\n      \"height\": 200,\n      \"format\": \"jpg\",\n      \"size\": 50000\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create Testimonial",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Jane Doe\",\n  \"message\": \"Outstanding service! The team was professional and efficient. My device was repaired quickly and perfectly.\",\n  \"rating\": 5,\n  \"position\": \"Marketing Manager\",\n  \"company\": \"Digital Agency\",\n  \"image\": {\n    \"url\": \"https://example.com/jane-testimonial.jpg\",\n    \"publicId\": \"jane-testimonial-id\",\n    \"folder\": \"app/testimonials\",\n    \"altText\": \"Jane Doe testimonial\",\n    \"width\": 200,\n    \"height\": 200,\n    \"format\": \"jpg\",\n    \"size\": 45000\n  },\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/testimonials",
+          "host": ["{{base_url}}"],
+          "path": ["api", "testimonials"]
+        },
+        "description": "Create a new testimonial (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"message\": \"Outstanding service! The team was professional and efficient. My device was repaired quickly and perfectly.\",\n  \"rating\": 5,\n  \"position\": \"Marketing Manager\",\n  \"company\": \"Digital Agency\",\n  \"image\": {\n    \"url\": \"https://example.com/jane-testimonial.jpg\",\n    \"publicId\": \"jane-testimonial-id\",\n    \"folder\": \"app/testimonials\",\n    \"altText\": \"Jane Doe testimonial\",\n    \"width\": 200,\n    \"height\": 200,\n    \"format\": \"jpg\",\n    \"size\": 45000\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/testimonials",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonials"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Testimonial created successfully\",\n  \"data\": {\n    \"id\": \"new-testimonial-uuid\",\n    \"name\": \"Jane Doe\",\n    \"message\": \"Outstanding service! The team was professional and efficient. My device was repaired quickly and perfectly.\",\n    \"rating\": 5,\n    \"position\": \"Marketing Manager\",\n    \"company\": \"Digital Agency\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/jane-testimonial.jpg\",\n      \"publicId\": \"jane-testimonial-id\",\n      \"folder\": \"app/testimonials\",\n      \"altText\": \"Jane Doe testimonial\",\n      \"width\": 200,\n      \"height\": 200,\n      \"format\": \"jpg\",\n      \"size\": 45000\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Testimonial",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Smith Updated\",\n  \"message\": \"Updated: Excellent service! They fixed my phone screen in no time. Highly recommended!\",\n  \"rating\": 5,\n  \"position\": \"Senior CEO\",\n  \"company\": \"Updated Tech Solutions Inc.\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-testimonial-image.jpg\",\n    \"publicId\": \"updated-testimonial-image-id\",\n    \"folder\": \"app/testimonials\",\n    \"altText\": \"Updated John Smith testimonial\",\n    \"width\": 200,\n    \"height\": 200,\n    \"format\": \"jpg\",\n    \"size\": 55000\n  },\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/testimonials/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "testimonials", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "testimonial-uuid-here",
+              "description": "Testimonial ID"
+            }
+          ]
+        },
+        "description": "Update testimonial by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Smith Updated\",\n  \"message\": \"Updated: Excellent service! They fixed my phone screen in no time. Highly recommended!\",\n  \"rating\": 5,\n  \"position\": \"Senior CEO\",\n  \"company\": \"Updated Tech Solutions Inc.\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-testimonial-image.jpg\",\n    \"publicId\": \"updated-testimonial-image-id\",\n    \"folder\": \"app/testimonials\",\n    \"altText\": \"Updated John Smith testimonial\",\n    \"width\": 200,\n    \"height\": 200,\n    \"format\": \"jpg\",\n    \"size\": 55000\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/testimonials/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonials", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "testimonial-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Testimonial updated successfully\",\n  \"data\": {\n    \"id\": \"testimonial-uuid-here\",\n    \"name\": \"John Smith Updated\",\n    \"message\": \"Updated: Excellent service! They fixed my phone screen in no time. Highly recommended!\",\n    \"rating\": 5,\n    \"position\": \"Senior CEO\",\n    \"company\": \"Updated Tech Solutions Inc.\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-testimonial-image.jpg\",\n      \"publicId\": \"updated-testimonial-image-id\",\n      \"folder\": \"app/testimonials\",\n      \"altText\": \"Updated John Smith testimonial\",\n      \"width\": 200,\n      \"height\": 200,\n      \"format\": \"jpg\",\n      \"size\": 55000\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Delete Testimonial",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/testimonials/:id",
+          "host": ["{{base_url}}"],
+          "path": ["api", "testimonials", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "testimonial-uuid-here",
+              "description": "Testimonial ID"
+            }
+          ]
+        },
+        "description": "Delete testimonial by ID (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/testimonials/:id",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonials", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "testimonial-uuid-here"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Testimonial deleted successfully\",\n  \"data\": null\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

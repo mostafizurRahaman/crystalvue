@@ -1,0 +1,327 @@
+{
+  "info": {
+    "name": "About Module",
+    "description": "API endpoints for about page management including company story, vision, mission, and page content",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get About Page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/about",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about"]
+        },
+        "description": "Get complete about page data (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/about",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"About page data retrieved successfully\",\n  \"data\": {\n    \"id\": \"about-uuid-here\",\n    \"title\": \"About Our Company\",\n    \"subtitle\": \"Your trusted partner in technology solutions\",\n    \"description\": \"We are a leading technology company dedicated to providing innovative solutions and exceptional service to our clients.\",\n    \"content\": \"<p>Founded in 2010, our company has been at the forefront of technological innovation...</p>\",\n    \"image\": {\n      \"url\": \"https://example.com/about-image.jpg\",\n      \"publicId\": \"about-image-id\",\n      \"altText\": \"About our company\"\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update About Page",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated About Our Company\",\n  \"subtitle\": \"Your trusted partner in innovative technology solutions\",\n  \"description\": \"We are a leading technology company dedicated to providing cutting-edge solutions and exceptional service to our clients worldwide.\",\n  \"content\": \"<p>Founded in 2010, our company has been at the forefront of technological innovation, helping businesses transform their operations...</p>\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-about-image.jpg\",\n    \"publicId\": \"updated-about-image-id\",\n    \"folder\": \"app/about\",\n    \"altText\": \"Updated about our company\",\n    \"width\": 1200,\n    \"height\": 800,\n    \"format\": \"jpg\",\n    \"size\": 300000\n  },\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/about",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about"]
+        },
+        "description": "Update about page content (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated About Our Company\",\n  \"subtitle\": \"Your trusted partner in innovative technology solutions\",\n  \"description\": \"We are a leading technology company dedicated to providing cutting-edge solutions and exceptional service to our clients worldwide.\",\n  \"content\": \"<p>Founded in 2010, our company has been at the forefront of technological innovation, helping businesses transform their operations...</p>\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-about-image.jpg\",\n    \"publicId\": \"updated-about-image-id\",\n    \"folder\": \"app/about\",\n    \"altText\": \"Updated about our company\",\n    \"width\": 1200,\n    \"height\": 800,\n    \"format\": \"jpg\",\n    \"size\": 300000\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/about",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"About page updated successfully\",\n  \"data\": {\n    \"id\": \"about-uuid-here\",\n    \"title\": \"Updated About Our Company\",\n    \"subtitle\": \"Your trusted partner in innovative technology solutions\",\n    \"description\": \"We are a leading technology company dedicated to providing cutting-edge solutions and exceptional service to our clients worldwide.\",\n    \"content\": \"<p>Founded in 2010, our company has been at the forefront of technological innovation, helping businesses transform their operations...</p>\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-about-image.jpg\",\n      \"publicId\": \"updated-about-image-id\",\n      \"folder\": \"app/about\",\n      \"altText\": \"Updated about our company\",\n      \"width\": 1200,\n      \"height\": 800,\n      \"format\": \"jpg\",\n      \"size\": 300000\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Company Story",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/about/story",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about", "story"]
+        },
+        "description": "Get company story (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/about/story",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about", "story"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Company story retrieved successfully\",\n  \"data\": {\n    \"id\": \"story-uuid-here\",\n    \"title\": \"Our Story\",\n    \"content\": \"<p>Our journey began in 2010 when our founders recognized the need for reliable technology solutions...</p>\",\n    \"image\": {\n      \"url\": \"https://example.com/company-story.jpg\",\n      \"publicId\": \"company-story-id\",\n      \"altText\": \"Our company story\"\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Company Story",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Our Updated Story\",\n  \"content\": \"<p>Our journey began in 2010 when our founders recognized the need for reliable technology solutions. Over the years, we have grown from a small startup to a leading technology company...</p>\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-company-story.jpg\",\n    \"publicId\": \"updated-company-story-id\",\n    \"folder\": \"app/about\",\n    \"altText\": \"Our updated company story\",\n    \"width\": 1000,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 250000\n  },\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/about/story",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about", "story"]
+        },
+        "description": "Update company story (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Our Updated Story\",\n  \"content\": \"<p>Our journey began in 2010 when our founders recognized the need for reliable technology solutions. Over the years, we have grown from a small startup to a leading technology company...</p>\",\n  \"image\": {\n    \"url\": \"https://example.com/updated-company-story.jpg\",\n    \"publicId\": \"updated-company-story-id\",\n    \"folder\": \"app/about\",\n    \"altText\": \"Our updated company story\",\n    \"width\": 1000,\n    \"height\": 600,\n    \"format\": \"jpg\",\n    \"size\": 250000\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/about/story",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about", "story"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Company story updated successfully\",\n  \"data\": {\n    \"id\": \"story-uuid-here\",\n    \"title\": \"Our Updated Story\",\n    \"content\": \"<p>Our journey began in 2010 when our founders recognized the need for reliable technology solutions. Over the years, we have grown from a small startup to a leading technology company...</p>\",\n    \"image\": {\n      \"id\": \"image-uuid\",\n      \"url\": \"https://example.com/updated-company-story.jpg\",\n      \"publicId\": \"updated-company-story-id\",\n      \"folder\": \"app/about\",\n      \"altText\": \"Our updated company story\",\n      \"width\": 1000,\n      \"height\": 600,\n      \"format\": \"jpg\",\n      \"size\": 250000\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get About Blocks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/about/blocks",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about", "blocks"]
+        },
+        "description": "Get vision and mission blocks (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/about/blocks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about", "blocks"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"About blocks retrieved successfully\",\n  \"data\": {\n    \"vision\": {\n      \"id\": \"vision-uuid-here\",\n      \"title\": \"Our Vision\",\n      \"content\": \"To be the leading provider of innovative technology solutions that transform businesses and improve lives.\",\n      \"icon\": \"vision-icon\",\n      \"isActive\": true\n    },\n    \"mission\": {\n      \"id\": \"mission-uuid-here\",\n      \"title\": \"Our Mission\",\n      \"content\": \"To deliver exceptional technology services and solutions that empower our clients to achieve their goals.\",\n      \"icon\": \"mission-icon\",\n      \"isActive\": true\n    }\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update About Blocks",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vision\": {\n    \"title\": \"Our Updated Vision\",\n    \"content\": \"To be the global leader in innovative technology solutions that transform businesses and improve lives worldwide.\",\n    \"icon\": \"updated-vision-icon\",\n    \"isActive\": true\n  },\n  \"mission\": {\n    \"title\": \"Our Updated Mission\",\n    \"content\": \"To deliver exceptional technology services and cutting-edge solutions that empower our clients to achieve their goals and drive innovation.\",\n    \"icon\": \"updated-mission-icon\",\n    \"isActive\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/about/blocks",
+          "host": ["{{base_url}}"],
+          "path": ["api", "about", "blocks"]
+        },
+        "description": "Update vision and mission blocks (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vision\": {\n    \"title\": \"Our Updated Vision\",\n    \"content\": \"To be the global leader in innovative technology solutions that transform businesses and improve lives worldwide.\",\n    \"icon\": \"updated-vision-icon\",\n    \"isActive\": true\n  },\n  \"mission\": {\n    \"title\": \"Our Updated Mission\",\n    \"content\": \"To deliver exceptional technology services and cutting-edge solutions that empower our clients to achieve their goals and drive innovation.\",\n    \"icon\": \"updated-mission-icon\",\n    \"isActive\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/about/blocks",
+              "host": ["{{base_url}}"],
+              "path": ["api", "about", "blocks"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"About blocks updated successfully\",\n  \"data\": {\n    \"vision\": {\n      \"id\": \"vision-uuid-here\",\n      \"title\": \"Our Updated Vision\",\n      \"content\": \"To be the global leader in innovative technology solutions that transform businesses and improve lives worldwide.\",\n      \"icon\": \"updated-vision-icon\",\n      \"isActive\": true,\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    },\n    \"mission\": {\n      \"id\": \"mission-uuid-here\",\n      \"title\": \"Our Updated Mission\",\n      \"content\": \"To deliver exceptional technology services and cutting-edge solutions that empower our clients to achieve their goals and drive innovation.\",\n      \"icon\": \"updated-mission-icon\",\n      \"isActive\": true,\n      \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n    }\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}

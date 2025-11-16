@@ -1,0 +1,9 @@
+feat(auth): implement user authentication and profile fetching
+
+This commit introduces user authentication and the ability to fetch user profiles.
+
+- Adds a new `/user` route to get the currently logged-in user's data.
+- Implements authentication middleware to protect the user route.
+- Extends the Express Request type to include the user object.
+- Improves server error handling for unhandled promise rejections and uncaught exceptions.
+- Updates the development scripts in `package.json`.

@@ -1,0 +1,334 @@
+{
+       "info": {
+         "name": "Category Management APIs",
+         "description": "API collection for category and category add-ons management",
+         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+       },
+       "item": [
+         {
+           "name": "Categories",
+           "item": [
+             {
+               "name": "Get All Categories",
+               "request": {
+                 "method": "GET",
+                 "header": [],
+                 "url": {
+                   "raw":
+     "{{baseUrl}}/categories?page=1&limit=10&sortBy=sortOrder&sortOrder=asc&isActive=&isPremium=&isRepairingService=&isShowHome=&search=", 
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories"],
+                   "query": [
+                     {
+                       "key": "page",
+                       "value": "1",
+                       "description": "Page number (default: 1)"
+                     },
+                     {
+                       "key": "limit",
+                       "value": "10",
+                       "description": "Number of items per page (max: 100)"
+                     },
+                     {
+                       "key": "sortBy",
+                       "value": "sortOrder",
+                       "description": "Field to sort by (default: sortOrder)"
+                     },
+                     {
+                       "key": "sortOrder",
+                       "value": "asc",
+                       "description": "Sort order asc or desc (default: asc)"
+                     },
+                     {
+                       "key": "isActive",
+                       "value": "",
+                       "description": "Filter by active status (optional)"
+                     },
+                     {
+                       "key": "isPremium",
+                       "value": "",
+                       "description": "Filter by premium status (optional)"
+                     },
+                     {
+                       "key": "isRepairingService",
+                       "value": "",
+                       "description": "Filter by repairing service status (optional)"
+                     },
+                     {
+                       "key": "isShowHome",
+                       "value": "",
+                       "description": "Filter by show home status (optional)"
+                     },
+                     {
+                       "key": "search",
+                       "value": "",
+                       "description": "Search in name, tagline, description (optional)"
+                     }
+                   ]
+                 },
+                 "description": "Get all categories with pagination and filters"
+               },
+               "response": []
+             },
+             {
+               "name": "Get Single Category",
+               "request": {
+                 "method": "GET",
+                 "header": [],
+                 "url": {
+                   "raw": "{{baseUrl}}/categories/{{categoryId}}?includeInactive=false",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories", "{{categoryId}}"],
+                   "query": [
+                     {
+                       "key": "includeInactive",
+                       "value": "false",
+                       "description": "Include inactive items (default: false)"
+                     }
+                   ]
+                 },
+                 "description": "Get category details by ID"
+               },
+               "response": []
+             },
+             {
+               "name": "Create Category",
+               "request": {
+                 "method": "POST",
+                 "header": [
+                   {
+                     "key": "Content-Type",
+                     "value": "application/json"
+                   },
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "body": {
+                   "mode": "raw",
+                   "raw": "{\n  \"name\": \"Electronics\",\n  \"tagline\": \"Latest electronic gadgets and devices\",\n  \"description\":  
+     \"Category for all electronic products including phones, laptops, and accessories\",\n  \"cardBannerUrl\":
+     \"https://example.com/images/electronics-card.jpg\",\n  \"detailsBannerUrl\":
+     \"https://example.com/images/electronics-details.jpg\",\n  \"isPremium\": false,\n  \"isRepairingService\": false,\n  \"isShowHome\": 
+      true,\n  \"sortOrder\": 1,\n  \"userId\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"addons\": [\"Extended Warranty\",
+     \"Installation Service\", \"Technical Support\"]\n}",
+                   "options": {
+                     "raw": {
+                       "language": "json"
+                     }
+                   }
+                 },
+                 "url": {
+                   "raw": "{{baseUrl}}/categories",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories"]
+                 },
+                 "description": "Create a new category (admin/superadmin only)"
+               },
+               "response": []
+             },
+             {
+               "name": "Update Category",
+               "request": {
+                 "method": "PUT",
+                 "header": [
+                   {
+                     "key": "Content-Type",
+                     "value": "application/json"
+                   },
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "body": {
+                   "mode": "raw",
+                   "raw": "{\n  \"name\": \"Electronics Updated\",\n  \"tagline\": \"Updated electronics category with premium
+     products\",\n  \"description\": \"Updated description for electronics category\",\n  \"cardBannerUrl\":
+     \"https://example.com/images/electronics-updated-card.jpg\",\n  \"detailsBannerUrl\":
+     \"https://example.com/images/electronics-updated-details.jpg\",\n  \"isPremium\": true,\n  \"isRepairingService\": true,\n
+     \"isShowHome\": true,\n  \"isActive\": true,\n  \"sortOrder\": 2,\n  \"userId\": \"123e4567-e89b-12d3-a456-426614174000\",\n
+     \"addons\": [\"Extended Warranty Pro\", \"Premium Installation\", \"24/7 Support\"]\n}",
+                   "options": {
+                     "raw": {
+                       "language": "json"
+                     }
+                   }
+                 },
+                 "url": {
+                   "raw": "{{baseUrl}}/categories/{{categoryId}}",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories", "{{categoryId}}"]
+                 },
+                 "description": "Update an existing category (admin/superadmin only)"
+               },
+               "response": []
+             },
+             {
+               "name": "Delete Category",
+               "request": {
+                 "method": "DELETE",
+                 "header": [
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "url": {
+                   "raw": "{{baseUrl}}/categories/{{categoryId}}?softDelete=false",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories", "{{categoryId}}"],
+                   "query": [
+                     {
+                       "key": "softDelete",
+                       "value": "false",
+                       "description": "Use soft delete instead of permanent deletion (optional)"
+                     }
+                   ]
+                 },
+                 "description": "Delete a category (admin/superadmin only)"
+               },
+               "response": []
+             },
+             {
+               "name": "Get Bulk Categories for Export",
+               "request": {
+                 "method": "GET",
+                 "header": [
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "url": {
+                   "raw": "{{baseUrl}}/categories?ids=123e4567-e89b-12d3-a456-426614174000,456e7890-e89b-12d3-a456-426614174001&isActive=t 
+     rue&isPremium=&isRepairingService=&isShowHome=",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories"],
+                   "query": [
+                     {
+                       "key": "ids",
+                       "value": "123e4567-e89b-12d3-a456-426614174000,456e7890-e89b-12d3-a456-426614174001",
+                       "description": "Comma-separated category IDs (optional)"
+                     },
+                     {
+                       "key": "isActive",
+                       "value": "true",
+                       "description": "Filter by active status (optional)"
+                     },
+                     {
+                       "key": "isPremium",
+                       "value": "",
+                       "description": "Filter by premium status (optional)"
+                     },
+                     {
+                       "key": "isRepairingService",
+                       "value": "",
+                       "description": "Filter by repairing service status (optional)"
+                     },
+                     {
+                       "key": "isShowHome",
+                       "value": "",
+                       "description": "Filter by show home status (optional)"
+                     }
+                   ]
+                 },
+                 "description": "Get bulk categories for export (admin/superadmin only)"
+               },
+               "response": []
+             }
+           ],
+           "description": "Category management endpoints"
+         },
+         {
+           "name": "Category Add-ons",
+           "item": [
+             {
+               "name": "Add Category Add-ons",
+               "request": {
+                 "method": "POST",
+                 "header": [
+                   {
+                     "key": "Content-Type",
+                     "value": "application/json"
+                   },
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "body": {
+                   "mode": "raw",
+                   "raw": "{\n  \"addons\": [\"Extended Warranty\", \"Installation Service\", \"Technical Support\", \"Free
+     Shipping\"]\n}",
+                   "options": {
+                     "raw": {
+                       "language": "json"
+                     }
+                   }
+                 },
+                 "url": {
+                   "raw": "{{baseUrl}}/categories/{{categoryId}}/addons",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories", "{{categoryId}}", "addons"]
+                 },
+                 "description": "Add add-ons to a category (admin/superadmin only)"
+               },
+               "response": []
+             },
+             {
+               "name": "Remove Category Add-ons",
+               "request": {
+                 "method": "DELETE",
+                 "header": [
+                   {
+                     "key": "Content-Type",
+                     "value": "application/json"
+                   },
+                   {
+                     "key": "Authorization",
+                     "value": "Bearer {{authToken}}"
+                   }
+                 ],
+                 "body": {
+                   "mode": "raw",
+                   "raw": "{\n  \"addonIds\": [\"789e0123-e89b-12d3-a456-426614174002\", \"012e3456-e89b-12d3-a456-426614174003\"],\n      
+     \"addonTexts\": [],\n  \"softDelete\": false\n}",
+                   "options": {
+                     "raw": {
+                       "language": "json"
+                     }
+                   }
+                 },
+                 "url": {
+                   "raw": "{{baseUrl}}/categories/{{categoryId}}/addons",
+                   "host": ["{{baseUrl}}"],
+                   "path": ["categories", "{{categoryId}}", "addons"]
+                 },
+                 "description": "Remove add-ons from a category (admin/superadmin only)"
+               },
+               "response": []
+             }
+           ],
+           "description": "Category add-ons management endpoints"
+         }
+       ],
+       "variable": [
+         {
+           "key": "baseUrl",
+           "value": "http://localhost:3000",
+           "description": "API base URL"
+         },
+         {
+           "key": "authToken",
+           "value": "your-jwt-token-here",
+           "description": "Authentication token"
+         },
+         {
+           "key": "categoryId",
+           "value": "123e4567-e89b-12d3-a456-426614174000",
+           "description": "Category ID for testing"
+         }
+       ]
+     }

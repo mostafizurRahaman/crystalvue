@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd ../.. && npm run db:generate && turbo run build --filter=backend",
+  "outputDirectory": "dist",
+  "installCommand": "cd ../.. && npm install",
+  "framework": null
+}
+

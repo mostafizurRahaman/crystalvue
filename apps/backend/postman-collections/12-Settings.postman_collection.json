@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "Settings Module",
+    "description": "API endpoints for global settings management including site-wide configuration and settings",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Settings",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/settings",
+          "host": ["{{base_url}}"],
+          "path": ["api", "settings"]
+        },
+        "description": "Get global settings (public access)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/settings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "settings"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Settings retrieved successfully\",\n  \"data\": {\n    \"id\": \"settings-uuid-here\",\n    \"siteName\": \"TechRepair Solutions\",\n    \"siteDescription\": \"Professional technology repair services\",\n    \"logo\": {\n      \"url\": \"https://example.com/logo.png\",\n      \"publicId\": \"logo-id\",\n      \"altText\": \"TechRepair Solutions Logo\"\n    },\n    \"favicon\": {\n      \"url\": \"https://example.com/favicon.ico\",\n      \"publicId\": \"favicon-id\",\n      \"altText\": \"Site favicon\"\n    },\n    \"contactInfo\": {\n      \"email\": \"info@techrepair.com\",\n      \"phone\": \"+1-555-123-4567\",\n      \"address\": \"123 Tech Street, City, State 12345\",\n      \"workingHours\": \"Mon-Fri: 9AM-6PM, Sat: 10AM-4PM\"\n    },\n    \"socialMedia\": {\n      \"facebook\": \"https://facebook.com/techrepair\",\n      \"twitter\": \"https://twitter.com/techrepair\",\n      \"instagram\": \"https://instagram.com/techrepair\",\n      \"linkedin\": \"https://linkedin.com/company/techrepair\"\n    },\n    \"seo\": {\n      \"metaTitle\": \"TechRepair Solutions - Professional Technology Repair Services\",\n      \"metaDescription\": \"Professional technology repair services for all your devices. Fast, reliable, and affordable solutions.\",\n      \"metaKeywords\": \"technology repair, phone repair, computer repair, electronics repair\"\n    },\n    \"features\": {\n      \"maintenanceMode\": false,\n      \"allowRegistration\": true,\n      \"requireEmailVerification\": true,\n      \"enableContactForm\": true\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Update Settings",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"siteName\": \"Updated TechRepair Solutions\",\n  \"siteDescription\": \"Professional technology repair services with 24/7 support\",\n  \"logo\": {\n    \"url\": \"https://example.com/updated-logo.png\",\n    \"publicId\": \"updated-logo-id\",\n    \"folder\": \"app/settings\",\n    \"altText\": \"Updated TechRepair Solutions Logo\",\n    \"width\": 200,\n    \"height\": 60,\n    \"format\": \"png\",\n    \"size\": 25000\n  },\n  \"favicon\": {\n    \"url\": \"https://example.com/updated-favicon.ico\",\n    \"publicId\": \"updated-favicon-id\",\n    \"folder\": \"app/settings\",\n    \"altText\": \"Updated site favicon\",\n    \"width\": 32,\n    \"height\": 32,\n    \"format\": \"ico\",\n    \"size\": 5000\n  },\n  \"contactInfo\": {\n    \"email\": \"contact@techrepair.com\",\n    \"phone\": \"+1-555-987-6543\",\n    \"address\": \"456 Updated Tech Street, New City, State 54321\",\n    \"workingHours\": \"Mon-Fri: 8AM-7PM, Sat-Sun: 9AM-5PM\"\n  },\n  \"socialMedia\": {\n    \"facebook\": \"https://facebook.com/updatedtechrepair\",\n    \"twitter\": \"https://twitter.com/updatedtechrepair\",\n    \"instagram\": \"https://instagram.com/updatedtechrepair\",\n    \"linkedin\": \"https://linkedin.com/company/updatedtechrepair\",\n    \"youtube\": \"https://youtube.com/updatedtechrepair\"\n  },\n  \"seo\": {\n    \"metaTitle\": \"Updated TechRepair Solutions - Professional Technology Repair Services\",\n    \"metaDescription\": \"Professional technology repair services for all your devices. Fast, reliable, and affordable solutions with 24/7 support.\",\n    \"metaKeywords\": \"technology repair, phone repair, computer repair, electronics repair, 24/7 support\"\n  },\n  \"features\": {\n    \"maintenanceMode\": false,\n    \"allowRegistration\": true,\n    \"requireEmailVerification\": true,\n    \"enableContactForm\": true,\n    \"enableBlog\": false,\n    \"enableNewsletter\": true\n  },\n  \"isActive\": true\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/settings",
+          "host": ["{{base_url}}"],
+          "path": ["api", "settings"]
+        },
+        "description": "Update global settings (Admin/Super Admin only)"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"siteName\": \"Updated TechRepair Solutions\",\n  \"siteDescription\": \"Professional technology repair services with 24/7 support\",\n  \"logo\": {\n    \"url\": \"https://example.com/updated-logo.png\",\n    \"publicId\": \"updated-logo-id\",\n    \"folder\": \"app/settings\",\n    \"altText\": \"Updated TechRepair Solutions Logo\",\n    \"width\": 200,\n    \"height\": 60,\n    \"format\": \"png\",\n    \"size\": 25000\n  },\n  \"favicon\": {\n    \"url\": \"https://example.com/updated-favicon.ico\",\n    \"publicId\": \"updated-favicon-id\",\n    \"folder\": \"app/settings\",\n    \"altText\": \"Updated site favicon\",\n    \"width\": 32,\n    \"height\": 32,\n    \"format\": \"ico\",\n    \"size\": 5000\n  },\n  \"contactInfo\": {\n    \"email\": \"contact@techrepair.com\",\n    \"phone\": \"+1-555-987-6543\",\n    \"address\": \"456 Updated Tech Street, New City, State 54321\",\n    \"workingHours\": \"Mon-Fri: 8AM-7PM, Sat-Sun: 9AM-5PM\"\n  },\n  \"socialMedia\": {\n    \"facebook\": \"https://facebook.com/updatedtechrepair\",\n    \"twitter\": \"https://twitter.com/updatedtechrepair\",\n    \"instagram\": \"https://instagram.com/updatedtechrepair\",\n    \"linkedin\": \"https://linkedin.com/company/updatedtechrepair\",\n    \"youtube\": \"https://youtube.com/updatedtechrepair\"\n  },\n  \"seo\": {\n    \"metaTitle\": \"Updated TechRepair Solutions - Professional Technology Repair Services\",\n    \"metaDescription\": \"Professional technology repair services for all your devices. Fast, reliable, and affordable solutions with 24/7 support.\",\n    \"metaKeywords\": \"technology repair, phone repair, computer repair, electronics repair, 24/7 support\"\n  },\n  \"features\": {\n    \"maintenanceMode\": false,\n    \"allowRegistration\": true,\n    \"requireEmailVerification\": true,\n    \"enableContactForm\": true,\n    \"enableBlog\": false,\n    \"enableNewsletter\": true\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/settings",
+              "host": ["{{base_url}}"],
+              "path": ["api", "settings"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Settings updated successfully\",\n  \"data\": {\n    \"id\": \"settings-uuid-here\",\n    \"siteName\": \"Updated TechRepair Solutions\",\n    \"siteDescription\": \"Professional technology repair services with 24/7 support\",\n    \"logo\": {\n      \"id\": \"image-uuid-1\",\n      \"url\": \"https://example.com/updated-logo.png\",\n      \"publicId\": \"updated-logo-id\",\n      \"folder\": \"app/settings\",\n      \"altText\": \"Updated TechRepair Solutions Logo\",\n      \"width\": 200,\n      \"height\": 60,\n      \"format\": \"png\",\n      \"size\": 25000\n    },\n    \"favicon\": {\n      \"id\": \"image-uuid-2\",\n      \"url\": \"https://example.com/updated-favicon.ico\",\n      \"publicId\": \"updated-favicon-id\",\n      \"folder\": \"app/settings\",\n      \"altText\": \"Updated site favicon\",\n      \"width\": 32,\n      \"height\": 32,\n      \"format\": \"ico\",\n      \"size\": 5000\n    },\n    \"contactInfo\": {\n      \"email\": \"contact@techrepair.com\",\n      \"phone\": \"+1-555-987-6543\",\n      \"address\": \"456 Updated Tech Street, New City, State 54321\",\n      \"workingHours\": \"Mon-Fri: 8AM-7PM, Sat-Sun: 9AM-5PM\"\n    },\n    \"socialMedia\": {\n      \"facebook\": \"https://facebook.com/updatedtechrepair\",\n      \"twitter\": \"https://twitter.com/updatedtechrepair\",\n      \"instagram\": \"https://instagram.com/updatedtechrepair\",\n      \"linkedin\": \"https://linkedin.com/company/updatedtechrepair\",\n      \"youtube\": \"https://youtube.com/updatedtechrepair\"\n    },\n    \"seo\": {\n      \"metaTitle\": \"Updated TechRepair Solutions - Professional Technology Repair Services\",\n      \"metaDescription\": \"Professional technology repair services for all your devices. Fast, reliable, and affordable solutions with 24/7 support.\",\n      \"metaKeywords\": \"technology repair, phone repair, computer repair, electronics repair, 24/7 support\"\n    },\n    \"features\": {\n      \"maintenanceMode\": false,\n      \"allowRegistration\": true,\n      \"requireEmailVerification\": true,\n      \"enableContactForm\": true,\n      \"enableBlog\": false,\n      \"enableNewsletter\": true\n    },\n    \"isActive\": true,\n    \"createdAt\": \"2024-01-01T00:00:00.000Z\",\n    \"updatedAt\": \"2024-01-01T00:00:00.000Z\"\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "your-jwt-token-here",
+      "type": "string"
+    }
+  ]
+}
