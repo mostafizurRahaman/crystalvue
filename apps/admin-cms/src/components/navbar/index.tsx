@@ -273,7 +273,7 @@ export default function Navigation() {
           <ThemeToggle />
 
           {/* Notifications */}
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
@@ -320,7 +320,7 @@ export default function Navigation() {
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
 
           {/* Profile Dropdown */}
           <DropdownMenu>
