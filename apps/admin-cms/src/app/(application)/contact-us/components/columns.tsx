@@ -109,16 +109,15 @@ export const getColumns = (
         <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
-        const status = row.getValue("status") as string;
-        const statusMap = {
-          pending: { status: "pending", label: "Pending" },
-          "in-progress": { status: "in-progress", label: "In Progress" },
-          resolved: { status: "resolved", label: "Resolved" },
-          closed: { status: "closed", label: "Closed" },
+        const status = (row.getValue("status") as string)?.toUpperCase();
+        const statusMap: Record<string, { status: IStatus; label: string }> = {
+          PENDING: { status: "pending", label: "Pending" },
+          APPROVED: { status: "approved", label: "Approved" },
+          REJECTED: { status: "rejected", label: "Rejected" },
         };
         const statusConfig =
-          statusMap[status as keyof typeof statusMap] || statusMap.pending;
-        return <StatusChips status={statusConfig.status as IStatus} />;
+          statusMap[status] || statusMap.PENDING;
+        return <StatusChips status={statusConfig.status} />;
       },
       size: 120,
     },

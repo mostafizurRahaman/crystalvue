@@ -27,7 +27,7 @@ import { updateContactUsStatus } from "@/api/contact-us";
 import { ContactUsExportData } from "./columns";
 
 const updateStatusSchema = z.object({
-  status: z.enum(["pending", "in-progress", "resolved", "closed"], {
+  status: z.enum(["PENDING", "APPROVED", "REJECTED"], {
     message: "Please select a status",
   }),
 });
@@ -53,11 +53,7 @@ export function UpdateStatusPopup({
   const form = useForm<UpdateStatusFormData>({
     resolver: zodResolver(updateStatusSchema),
     defaultValues: {
-      status: inquiry.status as
-        | "pending"
-        | "in-progress"
-        | "resolved"
-        | "closed",
+      status: (inquiry.status?.toUpperCase() as "PENDING" | "APPROVED" | "REJECTED") || "PENDING",
     },
     mode: "onSubmit",
   });
@@ -65,11 +61,7 @@ export function UpdateStatusPopup({
   useEffect(() => {
     if (inquiry && open) {
       form.reset({
-        status: inquiry.status as
-          | "pending"
-          | "in-progress"
-          | "resolved"
-          | "closed",
+        status: (inquiry.status?.toUpperCase() as "PENDING" | "APPROVED" | "REJECTED") || "PENDING",
       });
     }
   }, [inquiry, open, form]);
@@ -83,9 +75,8 @@ export function UpdateStatusPopup({
     setIsSubmitting(true);
     try {
       await updateContactUsStatus(inquiry.id, data);
-      toast.success(
-        `Status updated to: ${data.status.replace("-", " ").charAt(0).toUpperCase() + data.status.slice(1).replace("-", " ")}`
-      );
+      const statusLabel = statusOptions.find(opt => opt.value === data.status)?.label || data.status;
+      toast.success(`Status updated to: ${statusLabel}`);
       onOpenChange(false);
       onSuccess?.();
       queryClient.invalidateQueries({ queryKey: ["contact-us"] });
@@ -100,18 +91,11 @@ export function UpdateStatusPopup({
   };
 
   const statusOptions = [
-    { value: "pending", label: "Pending", color: "text-yellow-600" },
-    { value: "in-progress", label: "In Progress", color: "text-blue-600" },
-    { value: "resolved", label: "Resolved", color: "text-green-600" },
-    { value: "closed", label: "Closed", color: "text-gray-600" },
+    { value: "PENDING", label: "Pending", color: "text-yellow-600" },
+    { value: "APPROVED", label: "Approved", color: "text-green-600" },
+    { value: "REJECTED", label: "Rejected", color: "text-red-600" },
   ];
 
-  const getStatusColor = (status: string) => {
-    return (
-      statusOptions.find((option) => option.value === status)?.color ||
-      "text-gray-600"
-    );
-  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -131,7 +115,7 @@ export function UpdateStatusPopup({
                 onValueChange={(value) =>
                   form.setValue(
                     "status",
-                    value as "pending" | "in-progress" | "resolved" | "closed"
+                    value as "PENDING" | "APPROVED" | "REJECTED"
                   )
                 }
               >

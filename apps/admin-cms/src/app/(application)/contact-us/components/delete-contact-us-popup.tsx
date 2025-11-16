@@ -60,22 +60,20 @@ export function DeleteContactUsPopup({
 
   const getStatusColor = (status: string) => {
     const statusColors = {
-      pending: "text-yellow-600 bg-yellow-50",
-      "in-progress": "text-blue-600 bg-blue-50",
-      resolved: "text-green-600 bg-green-50",
-      closed: "text-gray-600 bg-gray-50",
+      PENDING: "text-yellow-600 bg-yellow-50",
+      APPROVED: "text-green-600 bg-green-50",
+      REJECTED: "text-red-600 bg-red-50",
     };
     return (
-      statusColors[status as keyof typeof statusColors] || statusColors.closed
+      statusColors[status?.toUpperCase() as keyof typeof statusColors] || statusColors.PENDING
     );
   };
 
   const getStatusLabel = (status: string) => {
     const statusLabels = {
-      pending: "Pending",
-      "in-progress": "In Progress",
-      resolved: "Resolved",
-      closed: "Closed",
+      PENDING: "Pending",
+      APPROVED: "Approved",
+      REJECTED: "Rejected",
     };
     return statusLabels[status as keyof typeof statusLabels] || status;
   };

@@ -17,7 +17,7 @@ export interface ContactInquiry {
   phoneNumber?: string;
   subject: string;
   message: string;
-  status: "pending" | "in-progress" | "resolved" | "closed";
+  status: "PENDING" | "APPROVED" | "REJECTED";
   images?: ImageMetadata[];
   createdAt: string;
   updatedAt: string;
@@ -53,5 +53,5 @@ export interface GetAllContactUsRequest {
 }
 
 export interface UpdateStatusRequest {
-  status: "pending" | "in-progress" | "resolved" | "closed";
+  status: "PENDING" | "APPROVED" | "REJECTED";
 }
