@@ -216,11 +216,15 @@ export const validateFile = (
 
   // Check file type
   if (!acceptedFormats.includes(file.type)) {
+    const formatNames = acceptedFormats.map((f) => {
+      const format = f.split("/")[1];
+      // Handle SVG format name
+      if (format === "svg+xml") return "svg";
+      return format;
+    });
     return {
       isValid: false,
-      error: `Invalid file format. Accepted formats: ${acceptedFormats
-        .map((f) => f.split("/")[1])
-        .join(", ")}`,
+      error: `Invalid file format. Accepted formats: ${formatNames.join(", ")}`,
     };
   }
 

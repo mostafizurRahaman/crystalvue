@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/typography";
 import {
@@ -63,9 +62,9 @@ export function SettingsForm() {
       seoKeywords: "",
       isActive: true,
       businessHours: {
-      openingText: "",
-      closeText: "",
-    },
+        openingText: "",
+        closeText: "",
+      },
     },
   });
 
@@ -302,6 +301,13 @@ export function SettingsForm() {
                         <SingleImageUpload
                           value={field.value?.url}
                           publicId={field.value?.publicId}
+                          acceptedFormats={[
+                            "image/jpeg",
+                            "image/png",
+                            "image/gif",
+                            "image/webp",
+                            "image/svg+xml",
+                          ]}
                           onImageUpload={(url, metadata) => {
                             if (url && metadata) {
                               field.onChange({
@@ -338,6 +344,13 @@ export function SettingsForm() {
                         <SingleImageUpload
                           value={field.value?.url}
                           publicId={field.value?.publicId}
+                          acceptedFormats={[
+                            "image/jpeg",
+                            "image/png",
+                            "image/gif",
+                            "image/webp",
+                            "image/svg+xml",
+                          ]}
                           onImageUpload={(url, metadata) => {
                             if (url && metadata) {
                               field.onChange({
@@ -374,6 +387,13 @@ export function SettingsForm() {
                         <SingleImageUpload
                           value={field.value?.url}
                           publicId={field.value?.publicId}
+                          acceptedFormats={[
+                            "image/jpeg",
+                            "image/png",
+                            "image/gif",
+                            "image/webp",
+                            "image/svg+xml",
+                          ]}
                           onImageUpload={(url, metadata) => {
                             if (url && metadata) {
                               field.onChange({
@@ -719,7 +739,8 @@ export function SettingsForm() {
 
               <div className="text-sm text-muted-foreground">
                 <Typography variant="Regular_H7">
-                  Enter your business hours. Opening text for when you're open, and closing text for when you're closed.
+                  Enter your business hours. Opening text for when you&apos;re
+                  open, and closing text for when you&apos;re closed.
                 </Typography>
               </div>
             </div>
@@ -745,23 +766,15 @@ export function SettingsForm() {
             />
 
             <div className="flex justify-end gap-2">
-              <Button 
-                type="button" 
-                variant="outline"
-                onClick={() => {
-                  console.log("Current form values:", form.getValues());
-                  console.log("Form errors:", form.formState.errors);
-                  console.log("Form is valid:", form.formState.isValid);
-                }}
-              >
-                Debug Form
-              </Button>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 disabled={isSubmitting}
                 onClick={() => {
                   console.log("Submit button clicked");
-                  console.log("Form errors before submit:", form.formState.errors);
+                  console.log(
+                    "Form errors before submit:",
+                    form.formState.errors
+                  );
                 }}
               >
                 {isSubmitting && (
