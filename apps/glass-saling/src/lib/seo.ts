@@ -27,12 +27,30 @@ export function generateMetadata(
   const siteDescription = settings?.siteDescription || "";
   const defaultImage = settings?.metaImage?.url;
 
-  const title = config.title
+  // Build title with keywords, limit to 75 characters for SEO
+  let title = config.title
     ? siteTitle
       ? `${config.title} | ${siteTitle}`
       : config.title
     : siteTitle || "";
-  const description = config.description || siteDescription || "";
+
+  // Truncate title to 75 characters (optimal for search engines)
+  // Ensure we don't cut in the middle of a word if possible
+  if (title.length > 75) {
+    const truncated = title.substring(0, 72);
+    const lastSpace = truncated.lastIndexOf(" ");
+    title =
+      lastSpace > 50
+        ? truncated.substring(0, lastSpace) + "..."
+        : truncated + "...";
+  }
+
+  // Truncate description to 160 characters (optimal for search engines)
+  let description = config.description || siteDescription || "";
+  if (description.length > 160) {
+    description = description.substring(0, 157) + "...";
+  }
+
   const keywords = config.keywords || settings?.seoKeywords || "";
   const image = config.image || defaultImage;
   const url = config.url || siteUrl;

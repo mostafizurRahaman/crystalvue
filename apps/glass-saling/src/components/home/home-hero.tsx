@@ -208,6 +208,7 @@ const HeroSlider = ({
             >
               <Typography
                 variant="Bold_H1"
+                as="h1"
                 className="text-4xl md:text-5xl !mb-6 block text-primary-foreground md:!leading-[1.3]"
               >
                 {slide.title}

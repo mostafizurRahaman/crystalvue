@@ -89,7 +89,7 @@ export function ServicesSection() {
     <section className="py-20 services-wrapper">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <Typography variant="Bold_H2" className="mb-4">
+          <Typography variant="Bold_H2" as="h2" className="mb-4">
             Our Services
           </Typography>
           <Typography

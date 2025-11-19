@@ -172,7 +172,8 @@ export function TestimonialsSection({
           >
             <Quote className="w-10 h-10 md:w-12 md:h-12 text-primary" />
             <Typography
-              variant="Bold_H1"
+              variant="Bold_H2"
+              as="h2"
               className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent"
             >
               {title}

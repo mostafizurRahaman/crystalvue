@@ -4,10 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
-import {
-  HomeHero,
-  MapSection,
-} from "@/components/home";
+import { HomeHero, MapSection } from "@/components/home";
 
 const TrustSection = dynamic(
   () => import("@/components/home").then((mod) => mod.TrustSection),
@@ -58,6 +55,19 @@ const Index = () => {
             View All Services <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </Link>
+        <div className="mt-6 flex flex-wrap justify-center gap-4 text-sm">
+          <Link href="/gallery" className="text-primary hover:underline">
+            View Gallery
+          </Link>
+          <span className="text-muted-foreground">•</span>
+          <Link href="/about-us" className="text-primary hover:underline">
+            About Us
+          </Link>
+          <span className="text-muted-foreground">•</span>
+          <Link href="/contact-us" className="text-primary hover:underline">
+            Contact Us
+          </Link>
+        </div>
       </div>
 
       {/* CTA Section */}

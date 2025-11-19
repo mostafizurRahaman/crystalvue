@@ -136,7 +136,9 @@ export function ServiceCategoryCard({
         {/* Floating Icon with glass effect - smaller */}
         <div className="float-element absolute bottom-3 left-3">
           <div className="glass-button rounded-xl p-2.5 backdrop-blur-xl">
-            <span className="text-4xl filter drop-shadow-lg">🏢️</span>
+            <span className="text-4xl filter drop-shadow-lg">
+              {category.isRepairingService ? "🛠️" : "🏢️"}
+            </span>
           </div>
         </div>
 

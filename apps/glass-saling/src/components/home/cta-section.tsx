@@ -144,6 +144,7 @@ export function CTASection() {
             </Badge>
             <Typography
               variant="Bold_H2"
+              as="h2"
               className="mb-4 text-primary-foreground"
             >
               Ready to Transform Your Space?
