@@ -1,8 +1,7 @@
-
 import app from "./app";
 import { env } from "./app/configs/env";
 import { db } from "./app/db";
-
+import { seedSuperAdmin } from "./app/utils";
 
 let server: any | undefined;
 
@@ -14,12 +13,12 @@ const main = async () => {
     await db.$connect();
     console.log("✅ Database connected");
 
-    
+    await seedSuperAdmin();
 
     server = app.listen(env.PORT, () => {
       console.log("ENV", env);
       console.log(
-        `Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`,
+        `Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`
       );
     });
   } catch (err) {
