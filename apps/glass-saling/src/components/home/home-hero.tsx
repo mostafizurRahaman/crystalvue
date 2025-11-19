@@ -206,13 +206,14 @@ const HeroSlider = ({
                 index === currentSlide ? "opacity-100" : "opacity-0 absolute"
               }`}
             >
-              <Typography
-                variant="Bold_H1"
-                as="h1"
-                className="text-4xl md:text-5xl !mb-6 block text-primary-foreground md:!leading-[1.3]"
-              >
-                {slide.title}
-              </Typography>
+              <h1>
+                <Typography
+                  variant="Bold_H1"
+                  className="text-4xl md:text-5xl !mb-6 block text-primary-foreground md:!leading-[1.3]"
+                >
+                  {slide.title}
+                </Typography>
+              </h1>
               <Typography
                 variant="Regular_H4"
                 className="text-primary-foreground/90 mb-6"
