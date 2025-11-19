@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { getSettingsServer } from "@/api";
-import { getAllCategories } from "@/api";
+import { getSettingsServer, getAllCategoriesServer } from "@/api";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import Script from "next/script";
 import { generateWebPageSchema } from "@/lib/seo";
@@ -18,15 +17,29 @@ export async function generateMetadata({
   try {
     // Use server-side function for better performance and caching
     settings = await getSettingsServer();
-    const categoriesResponse = await getAllCategories({
-      isActive: true,
-      limit: 1000,
+    // Fetch all categories and find the one matching the ID
+    // Note: Backend max limit is 100, so we use that
+    const categoriesResponse = await getAllCategoriesServer({
+      limit: 100,
     });
 
     if (categoriesResponse.success && categoriesResponse.data) {
+      // Try multiple ID comparison methods to handle different formats
       category = categoriesResponse.data.find(
-        (cat) => cat.id.toString() === categoryId
+        (cat) =>
+          cat.id === categoryId ||
+          cat.id.toString() === categoryId ||
+          String(cat.id) === String(categoryId)
       );
+
+      // Debug logging (remove in production if not needed)
+      if (!category && categoriesResponse.data.length > 0) {
+        console.log("Category ID from URL:", categoryId);
+        console.log(
+          "Available category IDs:",
+          categoriesResponse.data.map((c) => c.id).slice(0, 5)
+        );
+      }
     }
   } catch (error) {
     console.error("Error fetching data for metadata:", error);
@@ -73,20 +86,35 @@ export default async function CategoryLayout({
 
   try {
     settings = await getSettingsServer();
-    const categoriesResponse = await getAllCategories({
-      isActive: true,
-      limit: 1000,
+    // Fetch all categories and find the one matching the ID
+    // Note: Backend max limit is 100, so we use that
+    const categoriesResponse = await getAllCategoriesServer({
+      limit: 100,
     });
 
     if (categoriesResponse.success && categoriesResponse.data) {
+      // Try multiple ID comparison methods to handle different formats
       category = categoriesResponse.data.find(
-        (cat) => cat.id.toString() === categoryId
+        (cat) =>
+          cat.id === categoryId ||
+          cat.id.toString() === categoryId ||
+          String(cat.id) === String(categoryId)
       );
+
+      // Debug logging (remove in production if not needed)
+      if (!category && categoriesResponse.data.length > 0) {
+        console.log("Category ID from URL:", categoryId);
+        console.log(
+          "Available category IDs:",
+          categoriesResponse.data.map((c) => c.id).slice(0, 5)
+        );
+      }
     }
   } catch (error) {
     console.error("Error fetching category for schema:", error);
   }
 
+  // If category is not found, show 404
   if (!category) {
     notFound();
   }

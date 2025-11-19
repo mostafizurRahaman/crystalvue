@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getAllCategories } from "@/api";
+import { getAllCategoriesServer } from "@/api";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
@@ -42,9 +42,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic routes - Categories
   let categoryRoutes: MetadataRoute.Sitemap = [];
   try {
-    const categoriesResponse = await getAllCategories({
+    const categoriesResponse = await getAllCategoriesServer({
       isActive: true,
-      limit: 1000,
+      limit: 100, // Backend max limit is 100
     });
 
     if (categoriesResponse.success && categoriesResponse.data) {
