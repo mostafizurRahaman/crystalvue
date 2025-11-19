@@ -37,6 +37,9 @@ const CTASection = dynamic(
 const Index = () => {
   return (
     <div className="min-h-screen">
+      <h1 className="hidden">
+        Glass Expert Qatar | Professional Glass Services
+      </h1>
       {/* Hero Section with Slider */}
       <HomeHero />
 
