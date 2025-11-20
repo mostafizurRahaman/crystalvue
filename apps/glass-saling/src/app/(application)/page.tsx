@@ -40,13 +40,16 @@ const Index = () => {
       <h1 className="hidden">
         Glass Expert Qatar | Professional Glass Services
       </h1>
+      <h2 className="hidden">Glass Expert Qatar Hero Section</h2>
       {/* Hero Section with Slider */}
       <HomeHero />
 
       {/* Trusted Section */}
+      <h2 className="hidden">Why Customers Trust Glass Expert Qatar</h2>
       <TrustSection />
 
       {/* Services Section */}
+      <h2 className="hidden">Featured Glass Installation Services</h2>
       <ServicesSection />
 
       <div className="text-center mt-12 mb-12">
@@ -74,9 +77,11 @@ const Index = () => {
       </div>
 
       {/* CTA Section */}
+      <h2 className="hidden">Schedule Your Glass Consultation</h2>
       <CTASection />
 
       {/* Testimonials Section */}
+      <h2 className="hidden">Glass Expert Qatar Testimonials</h2>
       <TestimonialsSection
         title="What Our Clients Say"
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"
@@ -84,7 +89,45 @@ const Index = () => {
       />
 
       {/* Map Section */}
+      <h2 className="hidden">Glass Expert Qatar Location Map</h2>
       <MapSection />
+
+      <div className="hidden" aria-hidden="true">
+        <nav>
+          <ul>
+            <li>
+              <Link href="/about-us">
+                Learn more about Glass Expert Qatar services
+              </Link>
+            </li>
+            <li>
+              <Link href="/all-categories">
+                Explore every glass installation category
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery">
+                View modern Doha glass project gallery
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact-us">
+                Contact Glass Expert Qatar support team
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy">
+                Review the Glass Expert Qatar privacy policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms-and-conditions">
+                Read Glass Expert Qatar terms and conditions
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };

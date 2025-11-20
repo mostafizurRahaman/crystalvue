@@ -55,6 +55,7 @@ const Gallery = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+      <h2 className="hidden">Glass Expert Qatar Gallery Hero</h2>
       <section className="py-20 gradient-hero text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -68,6 +69,7 @@ const Gallery = () => {
       </section>
 
       {/* Filter Section */}
+      <h2 className="hidden">Gallery Category Filters</h2>
       <section className="py-8 bg-card sticky top-16 z-40 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
@@ -93,13 +95,14 @@ const Gallery = () => {
       </section>
 
       {/* Gallery Grid */}
+      <h2 className="hidden">Glass Expert Qatar Project Gallery</h2>
       <section className="py-20">
         <div className="container mx-auto px-4">
           {isLoading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 12 }).map((_, index) => (
-                <Card key={index} className="glass-card !py-0 overflow-hidden">
-                  <Skeleton className="aspect-[4/3] w-full" />
+                <Card key={index} className="glass-card py-0! overflow-hidden">
+                  <Skeleton className="aspect-4/3 w-full" />
                 </Card>
               ))}
             </div>
@@ -115,9 +118,9 @@ const Gallery = () => {
                 {galleries.map((gallery) => (
                   <Card
                     key={gallery.id}
-                    className="glass-card !py-0 overflow-hidden group cursor-pointer hover:shadow-xl transition-all"
+                    className="glass-card py-0! overflow-hidden group cursor-pointer hover:shadow-xl transition-all"
                   >
-                    <div className="aspect-[4/3] relative overflow-hidden">
+                    <div className="aspect-4/3 relative overflow-hidden">
                       {gallery.image?.url ? (
                         <Image
                           src={gallery.image.url}
@@ -131,12 +134,12 @@ const Gallery = () => {
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : (
-                        <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <div className="aspect-4/3 bg-linear-to-br from-primary/20 to-accent/20 flex items-center justify-center">
                           <p className="text-muted-foreground">No image</p>
                         </div>
                       )}
                       {gallery.caption && (
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                           <div className="p-4 text-white w-full">
                             <p className="text-sm font-medium line-clamp-2">
                               {gallery.caption}
@@ -198,12 +201,15 @@ const Gallery = () => {
       </section>
 
       {/* Trusted Section */}
+      <h2 className="hidden">Glass Expert Qatar Trust Badges</h2>
       <TrustSection />
 
       {/* CTA Section */}
+      <h2 className="hidden">Request A Gallery Consultation CTA</h2>
       <CTASection />
 
       {/* Testimonials Section */}
+      <h2 className="hidden">Gallery Page Customer Testimonials</h2>
       <TestimonialsSection
         title="What Our Clients Say"
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"

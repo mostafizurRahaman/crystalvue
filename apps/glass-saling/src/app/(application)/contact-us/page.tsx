@@ -313,6 +313,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Clean Hero Section */}
+      <h2 className="hidden">Contact Glass Expert Qatar Hero</h2>
       <section className="py-20 gradient-hero text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -325,6 +326,7 @@ const Contact = () => {
       </section>
 
       {/* Main Content */}
+      <h2 className="hidden">Glass Expert Qatar Contact Form And Details</h2>
       <section className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-8">

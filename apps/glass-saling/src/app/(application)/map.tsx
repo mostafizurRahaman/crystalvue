@@ -1,6 +1,7 @@
 const GoogleMap = () => {
   return (
     <section className="w-full h-[500px] md:h-[600px] lg:h-[700px] relative">
+      <h2 className="hidden">Glass Expert Qatar Location Map</h2>
       <iframe
         src="https://www.google.com/maps/embed?pb=YOUR_EMBED_URL"
         className="absolute inset-0 w-full h-full border-0"

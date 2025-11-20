@@ -88,19 +88,6 @@ const CategoryServicesPage = () => {
   // Get category info from first service (if available)
   const categoryName = services[0]?.parentCategory?.name || "Services";
 
-  // Calculate statistics
-  const stats = useMemo(() => {
-    const total = services.length;
-    const premium = services.filter((s) => s.isPremium).length;
-    const regular = total - premium;
-
-    return {
-      total,
-      premium,
-      regular,
-    };
-  }, [services]);
-
   // Reset page when search or filters change
   useEffect(() => {
     setCurrentPage(1);
@@ -183,6 +170,7 @@ const CategoryServicesPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
+      <h2 className="hidden">Service Category Hero Section</h2>
       <section className="py-16 gradient-hero text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -232,6 +220,7 @@ const CategoryServicesPage = () => {
       </section>
 
       {/* Filters and Controls Bar */}
+      <h2 className="hidden">Service Category Filters And Sorting</h2>
       <section className="sticky top-0 z-40 bg-background border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
@@ -298,7 +287,7 @@ const CategoryServicesPage = () => {
                     variant="outline"
                     size="sm"
                     onClick={clearAllFilters}
-                    className="h-8 text-sm !mt-auto"
+                    className="h-8 text-sm mt-auto!"
                   >
                     Clear filters
                   </Button>
@@ -345,6 +334,7 @@ const CategoryServicesPage = () => {
       </section>
 
       {/* Main Content Area */}
+      <h2 className="hidden">Available Services In Selected Category</h2>
       <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="flex gap-8">
@@ -533,12 +523,15 @@ const CategoryServicesPage = () => {
       </section>
 
       {/* Trusted Section */}
+      <h2 className="hidden">Glass Expert Qatar Trust Signals</h2>
       <TrustSection />
 
       {/* CTA Section */}
+      <h2 className="hidden">Schedule Service Consultation CTA</h2>
       <CTASection />
 
       {/* Testimonials Section */}
+      <h2 className="hidden">Customer Testimonials For Category Services</h2>
       <TestimonialsSection
         title="What Our Clients Say"
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"

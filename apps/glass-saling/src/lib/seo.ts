@@ -138,11 +138,7 @@ export function generateOrganizationSchema(
     "@type": "Organization",
     name: siteTitle,
     url: siteUrl,
-    logo: settings?.logoImage?.url
-      ? siteUrl
-        ? `${siteUrl}${settings.logoImage.url}`
-        : settings.logoImage.url
-      : undefined,
+    logo: settings?.logoImage?.url,
     description: settings?.siteDescription || "",
     contactPoint: {
       "@type": "ContactPoint",

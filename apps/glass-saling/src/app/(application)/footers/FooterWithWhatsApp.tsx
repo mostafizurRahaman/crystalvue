@@ -306,7 +306,7 @@ const FooterWhatsApp = () => {
             </Typography>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 group cursor-pointer">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
                 <Typography
                   variant="Regular_H6"
                   className="text-muted-foreground group-hover:text-foreground transition-colors whitespace-pre-line"
@@ -340,7 +340,7 @@ const FooterWhatsApp = () => {
                 </Typography>
               </li>
               <li className="flex items-start gap-2 group cursor-pointer">
-                <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
+                <Phone className="w-4 h-4 mt-0.5 shrink-0 text-primary" />
                 <Typography
                   variant="Regular_H6"
                   className="text-muted-foreground group-hover:text-foreground transition-colors"
@@ -371,11 +371,19 @@ const FooterWhatsApp = () => {
             variant="Regular_H6"
             className="text-muted-foreground text-center md:text-left"
           >
-            © {currentYear} {siteTitle}. All rights reserved.
+            © {currentYear} {siteTitle} @{" "}
+            <a
+              href="https://www.glassexpertqatar.com"
+              target="_blank"
+              rel="noreferrer"
+              className="underline-offset-2 hover:underline"
+            >
+              https://www.glassexpertqatar.com
+            </a>
           </Typography>
 
           <div className="flex flex-wrap items-center gap-4 text-center">
-            <Link href="/privacy">
+            <Link href="/privacy-policy">
               <Typography
                 variant="Regular_H6"
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -384,12 +392,12 @@ const FooterWhatsApp = () => {
               </Typography>
             </Link>
             <span className="text-muted-foreground">•</span>
-            <Link href="/terms">
+            <Link href="/terms-and-conditions">
               <Typography
                 variant="Regular_H6"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                Terms of Service
+                Terms & Conditions
               </Typography>
             </Link>
           </div>

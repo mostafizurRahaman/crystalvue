@@ -13,7 +13,11 @@ import { cn } from "@/lib/utils";
 
 import { getAboutPageData, type AboutPageData } from "@/api";
 import { AboutPageSkeleton } from "@/components/about-page-skeleton";
-import { TestimonialsSection, TrustSection, CTASection } from "@/components/home";
+import {
+  TestimonialsSection,
+  TrustSection,
+  CTASection,
+} from "@/components/home";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -174,6 +178,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section with Banner */}
+      <h2 className="hidden">About Glass Expert Qatar Hero Overview</h2>
       <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -250,6 +255,7 @@ export default function AboutPage() {
       </section>
 
       {/* Company Story Section */}
+      <h2 className="hidden">Glass Expert Qatar Company Story</h2>
       <section
         ref={storyRef}
         className="py-20 md:py-32 relative overflow-hidden"
@@ -261,7 +267,7 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Image */}
             <div className="relative group">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+              <div className="relative aspect-4/5 rounded-2xl overflow-hidden">
                 <Image
                   src={
                     dataToUse.companyStory?.leftImage?.url ||
@@ -278,7 +284,7 @@ export default function AboutPage() {
                   }}
                 />
                 {/* Image Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-background/80 via-transparent to-transparent" />
               </div>
 
               {/* Floating Card */}
@@ -349,6 +355,7 @@ export default function AboutPage() {
       </section>
 
       {/* Vision & Mission Section */}
+      <h2 className="hidden">Glass Expert Qatar Vision and Mission</h2>
       <section className="py-20 md:py-32 bg-muted/30">
         <div className="container mx-auto px-4">
           {/* Section Header */}
@@ -429,7 +436,7 @@ export default function AboutPage() {
               )}
             >
               {/* Top Gradient Line */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
               <CardContent className="p-8 md:p-10 space-y-6">
                 {/* Icon */}
@@ -466,12 +473,15 @@ export default function AboutPage() {
         </div>
       </section>
       {/* Trusted Section */}
+      <h2 className="hidden">Reasons To Trust Glass Expert Qatar</h2>
       <TrustSection />
 
       {/* CTA Section */}
+      <h2 className="hidden">Contact Glass Expert Qatar CTA</h2>
       <CTASection />
 
       {/* Testimonials Section */}
+      <h2 className="hidden">Glass Expert Qatar Customer Testimonials</h2>
       <TestimonialsSection
         title="What Our Clients Say"
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"

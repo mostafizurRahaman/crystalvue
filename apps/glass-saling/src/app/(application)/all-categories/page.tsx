@@ -202,6 +202,7 @@ const AllCategories = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
+      <h2 className="hidden">All Glass Services Hero Section</h2>
       <section className="py-16 gradient-hero text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -274,6 +275,7 @@ const AllCategories = () => {
       </section>
 
       {/* Filters and Controls Bar */}
+      <h2 className="hidden">Service Filters and Sorting Options</h2>
       <section className="sticky top-0 z-40 bg-background border-b">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
@@ -369,7 +371,7 @@ const AllCategories = () => {
                     variant="outline"
                     size="sm"
                     onClick={clearAllFilters}
-                    className="h-8 text-sm !mt-auto"
+                    className="h-8 text-sm mt-auto!"
                   >
                     Clear filters
                   </Button>
@@ -444,6 +446,7 @@ const AllCategories = () => {
       </section>
 
       {/* Main Content Area */}
+      <h2 className="hidden">Glass Service Listings</h2>
       <section className="py-8">
         <div className="container mx-auto px-4">
           <div className="flex gap-8">
@@ -679,12 +682,15 @@ const AllCategories = () => {
       </section>
 
       {/* Trusted Section */}
+      <h2 className="hidden">Trust Indicators For Glass Expert Qatar</h2>
       <TrustSection />
 
       {/* CTA Section */}
+      <h2 className="hidden">Book Your Glass Consultation CTA</h2>
       <CTASection />
 
       {/* Testimonials Section */}
+      <h2 className="hidden">Client Testimonials For Glass Expert Qatar</h2>
       <TestimonialsSection
         title="What Our Clients Say"
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"
