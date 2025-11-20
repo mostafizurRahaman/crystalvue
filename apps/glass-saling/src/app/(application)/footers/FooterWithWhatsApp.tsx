@@ -371,14 +371,14 @@ const FooterWhatsApp = () => {
             variant="Regular_H6"
             className="text-muted-foreground text-center md:text-left"
           >
-            © {currentYear} {siteTitle} @{" "}
+            © {currentYear} @
             <a
               href="https://www.glassexpertqatar.com"
               target="_blank"
               rel="noreferrer"
               className="underline-offset-2 hover:underline"
             >
-              https://www.glassexpertqatar.com
+              glassexpertqatar.com
             </a>
           </Typography>
 

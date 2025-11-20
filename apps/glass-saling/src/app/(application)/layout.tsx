@@ -3,6 +3,8 @@ import { getSettingsServer } from "@/api";
 import {
   generateMetadata as generateSEOMetadata,
   generateWebPageSchema,
+  generateOrganizationSchema,
+  generateServiceBusinessSchema,
 } from "@/lib/seo";
 import Script from "next/script";
 
@@ -65,6 +67,8 @@ export default async function ApplicationLayout({
     settings?.metaImage?.url,
     settings || undefined
   );
+  const organizationSchema = generateOrganizationSchema(settings || undefined);
+  const businessSchema = generateServiceBusinessSchema(settings || undefined);
 
   return (
     <>
@@ -73,6 +77,20 @@ export default async function ApplicationLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(webpageSchema),
+        }}
+      />
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+      <Script
+        id="business-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(businessSchema),
         }}
       />
       {children}

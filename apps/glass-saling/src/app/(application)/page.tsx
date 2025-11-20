@@ -125,6 +125,53 @@ const Index = () => {
                 Read Glass Expert Qatar terms and conditions
               </Link>
             </li>
+            <li>
+              <Link href="/all-categories">
+                Professional glass services in Qatar
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery">
+                Glass installation portfolio and examples
+              </Link>
+            </li>
+            <li>
+              <Link href="/about-us">About our glass company in Doha</Link>
+            </li>
+            <li>
+              <Link href="/contact-us">
+                Get a free quote for glass services
+              </Link>
+            </li>
+            <li>
+              <Link href="/">Homepage - Glass Expert Qatar main page</Link>
+            </li>
+            <li>
+              <Link href="/all-categories">
+                Browse all glass service categories
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery">View completed glass projects</Link>
+            </li>
+            <li>
+              <Link href="/about-us">Company history and expertise</Link>
+            </li>
+            <li>
+              <Link href="/contact-us">
+                Request glass installation consultation
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy">
+                Data protection and privacy information
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms-and-conditions">
+                Service terms and warranty details
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

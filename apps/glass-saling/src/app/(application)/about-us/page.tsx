@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/typography";
 import { ArrowRight, Sparkles, Target, Eye } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 import { getAboutPageData, type AboutPageData } from "@/api";
@@ -487,6 +488,57 @@ export default function AboutPage() {
         subtitle="Join thousands of satisfied customers who have transformed their business with our solutions"
         badge="Testimonials"
       />
+
+      <div className="hidden" aria-hidden="true">
+        <nav>
+          <ul>
+            <li>
+              <Link href="/">Homepage - Glass Expert Qatar main page</Link>
+            </li>
+            <li>
+              <Link href="/all-categories">
+                Browse all glass service categories
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery">View completed glass projects</Link>
+            </li>
+            <li>
+              <Link href="/contact-us">
+                Request glass installation consultation
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy">
+                Data protection and privacy information
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms-and-conditions">
+                Service terms and warranty details
+              </Link>
+            </li>
+            <li>
+              <Link href="/all-categories">
+                Professional glass services in Qatar
+              </Link>
+            </li>
+            <li>
+              <Link href="/gallery">
+                Glass installation portfolio and examples
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact-us">
+                Get a free quote for glass services
+              </Link>
+            </li>
+            <li>
+              <Link href="/">Glass Expert Qatar home</Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 }
