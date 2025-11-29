@@ -64,6 +64,10 @@ export default async function RootLayout({
             __html: JSON.stringify(businessSchema),
           }}
         />
+        <meta
+          name="google-site-verification"
+          content={process.env.NEXT_PUBLIC_GOOGLE_SEARCH_KEY}
+        />
       </head>
       <body className={cn(poppins.className, poppins.variable, "antialiased")}>
         <ThemeProvider
