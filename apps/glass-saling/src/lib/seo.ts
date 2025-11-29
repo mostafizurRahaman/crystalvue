@@ -1,4 +1,3 @@
-/* eslint-disable prefer-const */
 import { Metadata } from "next";
 import { GlobalSettings } from "@/api";
 
@@ -16,22 +15,28 @@ export interface SEOConfig {
   nofollow?: boolean;
 }
 
-/**
- * Convert human-readable time (e.g., "9:00 AM") to 24-hour format "HH:mm"
- */
-function convertTo24Hour(time: string) {
+/** Helper: Convert human-readable time (e.g., "9:00 AM") to 24-hour format "HH:mm" */
+function to24Hour(time: string) {
   const [hourMin, period] = time.split(" ");
-  let [hours, minutes] = hourMin.split(":").map(Number);
+  let hours = Number(hourMin.split(":")[0]);
+  const minutes = Number(hourMin.split(":")[1]);
   if (period.toLowerCase() === "pm" && hours < 12) hours += 12;
   if (period.toLowerCase() === "am" && hours === 12) hours = 0;
-  return `${hours.toString().padStart(2, "0")}:${minutes
-    .toString()
-    .padStart(2, "0")}`;
+  return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 }
 
-/**
- * Generate comprehensive metadata for SEO
- */
+/** Helper: Ensure URL is absolute */
+function getFullUrl(url: string | undefined, baseUrl: string) {
+  if (!url) return undefined;
+  return url.startsWith("http") ? url : `${baseUrl}${url}`;
+}
+
+/** Helper: Clean social links by removing query params */
+function cleanSocialLink(link?: string) {
+  return link?.split("?")[0];
+}
+
+/** Generate comprehensive metadata for SEO */
 export function generateMetadata(
   config: SEOConfig,
   settings?: GlobalSettings | null
@@ -39,17 +44,14 @@ export function generateMetadata(
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
   const siteTitle = settings?.siteTitle || "";
   const siteDescription = settings?.siteDescription || "";
-  const defaultImage = settings?.metaImage?.url;
 
   // Build title
   let title = config.title
     ? siteTitle
       ? `${config.title} | ${siteTitle}`
       : config.title
-    : siteTitle || "";
-
-  // Truncate title to 75 characters
-  if (title.length > 75) {
+    : siteTitle;
+  if (title && title.length > 75) {
     const truncated = title.substring(0, 72);
     const lastSpace = truncated.lastIndexOf(" ");
     title =
@@ -58,22 +60,14 @@ export function generateMetadata(
         : truncated + "...";
   }
 
-  // Truncate description to 160 characters
+  // Build description
   let description = config.description || siteDescription || "";
-  if (description.length > 160) {
+  if (description.length > 160)
     description = description.substring(0, 157) + "...";
-  }
 
   const keywords = config.keywords || settings?.seoKeywords || "";
-  const image = config.image || defaultImage;
+  const image = getFullUrl(config.image || settings?.metaImage?.url, siteUrl);
   const url = config.url || siteUrl;
-  const fullImageUrl = image
-    ? image.startsWith("http")
-      ? image
-      : siteUrl
-        ? `${siteUrl}${image}`
-        : image
-    : undefined;
 
   return {
     title,
@@ -100,10 +94,10 @@ export function generateMetadata(
       title,
       description,
       siteName: siteTitle,
-      images: fullImageUrl
+      images: image
         ? [
             {
-              url: fullImageUrl,
+              url: image,
               ...(settings?.metaImage?.width && {
                 width: settings.metaImage.width,
               }),
@@ -121,38 +115,30 @@ export function generateMetadata(
       card: "summary_large_image",
       title,
       description,
-      images: fullImageUrl ? [fullImageUrl] : undefined,
+      images: image ? [image] : undefined,
       creator: settings?.socialMediaLinks?.twitter
         ? `@${settings.socialMediaLinks.twitter.split("/").pop()}`
         : undefined,
     },
-    alternates: {
-      canonical: url || undefined,
-    },
+    alternates: { canonical: url || undefined },
     ...(siteUrl && { metadataBase: new URL(siteUrl) }),
   };
 }
 
-/**
- * Generate structured data (JSON-LD) for organization
- */
+/** Generate structured data for organization */
 export function generateOrganizationSchema(
   settings?: GlobalSettings | null
 ): object {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
   const siteTitle = settings?.siteTitle || "";
-  const fullLogoUrl = settings?.logoImage?.url
-    ? settings.logoImage.url.startsWith("http")
-      ? settings.logoImage.url
-      : `${siteUrl}${settings.logoImage.url}`
-    : undefined;
+  const logo = getFullUrl(settings?.logoImage?.url, siteUrl);
 
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: siteTitle,
     url: siteUrl,
-    logo: fullLogoUrl,
+    logo,
     description: settings?.siteDescription || "",
     contactPoint: {
       "@type": "ContactPoint",
@@ -164,11 +150,11 @@ export function generateOrganizationSchema(
     },
     sameAs: settings?.socialMediaLinks
       ? [
-          settings.socialMediaLinks.facebook?.split("?")[0],
-          settings.socialMediaLinks.instagram?.split("?")[0],
-          settings.socialMediaLinks.twitter?.split("?")[0],
-          settings.socialMediaLinks.linkedin?.split("?")[0],
-          settings.socialMediaLinks.youtube?.split("?")[0],
+          cleanSocialLink(settings.socialMediaLinks.facebook!),
+          cleanSocialLink(settings.socialMediaLinks.instagram!),
+          cleanSocialLink(settings.socialMediaLinks.twitter!),
+          cleanSocialLink(settings.socialMediaLinks.linkedin!),
+          cleanSocialLink(settings.socialMediaLinks.youtube!),
         ].filter(Boolean)
       : [],
     address: settings?.officeAddress
@@ -181,9 +167,7 @@ export function generateOrganizationSchema(
   };
 }
 
-/**
- * Generate structured data for a webpage
- */
+/** Generate structured data for a webpage */
 export function generateWebPageSchema(
   title: string,
   description: string,
@@ -192,19 +176,7 @@ export function generateWebPageSchema(
   settings?: GlobalSettings | null
 ): object {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-  const fullImageUrl = image
-    ? image.startsWith("http")
-      ? image
-      : siteUrl
-        ? `${siteUrl}${image}`
-        : image
-    : settings?.metaImage?.url
-      ? settings.metaImage.url.startsWith("http")
-        ? settings.metaImage.url
-        : siteUrl
-          ? `${siteUrl}${settings.metaImage.url}`
-          : settings.metaImage.url
-      : undefined;
+  const fullImageUrl = getFullUrl(image || settings?.metaImage?.url, siteUrl);
 
   return {
     "@context": "https://schema.org",
@@ -214,38 +186,27 @@ export function generateWebPageSchema(
     url,
     image: fullImageUrl,
     inLanguage: "en-US",
-    isPartOf: {
-      "@type": "WebSite",
-      name: title,
-      url: siteUrl,
-    },
+    isPartOf: { "@type": "WebSite", name: title, url: siteUrl },
   };
 }
 
-/**
- * Generate structured data for a service business (LocalBusiness)
- */
+/** Generate structured data for a LocalBusiness */
 export function generateServiceBusinessSchema(
   settings?: GlobalSettings | null
 ): object {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
   const siteTitle = settings?.siteTitle || "";
-  const fullLogoUrl = settings?.logoImage?.url
-    ? settings.logoImage.url.startsWith("http")
-      ? settings.logoImage.url
-      : `${siteUrl}${settings.logoImage.url}`
-    : undefined;
+  const logo = getFullUrl(settings?.logoImage?.url, siteUrl);
 
-  // Handle opening hours
-  const daysOpen = ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"]; // Friday closed
-  const openingHoursSpec =
+  const daysOpen = ["Monday", "Tuesday", "Wednesday", "Thursday", "Saturday"];
+  const openingHours =
     settings?.businessHours?.openingText && settings?.businessHours?.closeText
       ? [
           {
             "@type": "OpeningHoursSpecification",
             dayOfWeek: daysOpen,
-            opens: convertTo24Hour(settings.businessHours.openingText),
-            closes: convertTo24Hour(settings.businessHours.closeText),
+            opens: to24Hour(settings.businessHours.openingText),
+            closes: to24Hour(settings.businessHours.closeText),
           },
         ]
       : undefined;
@@ -255,7 +216,7 @@ export function generateServiceBusinessSchema(
     "@type": "LocalBusiness",
     "@id": `${siteUrl}#organization`,
     name: siteTitle,
-    image: fullLogoUrl,
+    image: logo,
     description: settings?.siteDescription || "",
     address: settings?.officeAddress
       ? {
@@ -264,16 +225,16 @@ export function generateServiceBusinessSchema(
           addressCountry: "QA",
         }
       : undefined,
-    telephone: settings?.contactPhone || undefined,
-    openingHoursSpecification: openingHoursSpec,
+    telephone: settings?.contactPhone,
+    openingHoursSpecification: openingHours,
     url: siteUrl,
     sameAs: settings?.socialMediaLinks
       ? [
-          settings.socialMediaLinks.facebook?.split("?")[0],
-          settings.socialMediaLinks.instagram?.split("?")[0],
-          settings.socialMediaLinks.twitter?.split("?")[0],
-          settings.socialMediaLinks.linkedin?.split("?")[0],
-          settings.socialMediaLinks.youtube?.split("?")[0],
+          cleanSocialLink(settings.socialMediaLinks.facebook!),
+          cleanSocialLink(settings.socialMediaLinks.instagram!),
+          cleanSocialLink(settings.socialMediaLinks.twitter!),
+          cleanSocialLink(settings.socialMediaLinks.linkedin!),
+          cleanSocialLink(settings.socialMediaLinks.youtube!),
         ].filter(Boolean)
       : [],
   };
