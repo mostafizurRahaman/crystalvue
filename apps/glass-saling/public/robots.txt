@@ -1,285 +1,65 @@
 # robots.txt for Glass Expert Qatar
-# Optimized for SEO and search engine crawling
+# Optimized for Next.js SEO and rendering
 # Last updated: 2025-11-20
 
 # ============================================
-# GLOBAL RULES - Apply to all bots
+# GLOBAL RULES
 # ============================================
 User-agent: *
 Allow: /
 
-# Public pages - explicitly allow important routes
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Allow: /privacy-policy
-Allow: /terms-and-conditions
+# Block Next.js internals, but ALLOW static assets for rendering
+Disallow: /_next/server/
+Disallow: /_next/cache/
+Disallow: /_next/image*   # Saves server bandwidth on dynamic resizing
+# Do NOT block /_next/static/ or /_next/ - Google needs JS/CSS to render your site.
 
-# Disallow sensitive and non-indexable routes
+# Disallow API and Admin routes
 Disallow: /api/
 Disallow: /admin/
-Disallow: /_next/
-Disallow: /_next/static/
-Disallow: /_next/image
-Disallow: /_next/webpack-hmr
 Disallow: /static/
 Disallow: /.next/
 Disallow: /.vercel/
-Disallow: /_error
+
+# Disallow Error pages
 Disallow: /404
 Disallow: /500
-Disallow: /500.html
-Disallow: /404.html
-
-# Note: Query parameters are allowed - use canonical URLs in metadata to avoid duplicate content
-
-# Disallow common non-content paths
-Disallow: /favicon.ico
-Disallow: /robots.txt
-# Note: sitemap.xml should be accessible, so we don't disallow it
-
-# Crawl delay for all bots (prevents server overload)
-Crawl-delay: 1
+Disallow: /_error
 
 # ============================================
-# GOOGLE BOTS - Optimized settings
+# ADVERTISING & SEO BOTS (Optional Crawl Delays)
 # ============================================
-User-agent: Googlebot
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Allow: /privacy-policy
-Allow: /terms-and-conditions
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /.next/
-Crawl-delay: 0
-
-User-agent: Googlebot-Image
-Allow: /
-Allow: /gallery
-Allow: /all-categories/
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: Googlebot-Video
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: Googlebot-News
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-# ============================================
-# BING BOTS - Microsoft search engines
-# ============================================
+# Google does not respect Crawl-delay. Bing/Yahoo do.
 User-agent: Bingbot
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Allow: /privacy-policy
-Allow: /terms-and-conditions
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /.next/
-Crawl-delay: 1
-
-User-agent: msnbot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-User-agent: msnbot-media
-Allow: /
-Allow: /gallery
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-# ============================================
-# YAHOO BOTS
-# ============================================
 User-agent: Slurp
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-# ============================================
-# SOCIAL MEDIA BOTS - For content sharing
-# ============================================
-User-agent: Twitterbot
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Allow: /privacy-policy
-Allow: /terms-and-conditions
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: facebookexternalhit
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: LinkedInBot
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: WhatsApp
-Allow: /
-Allow: /about-us
-Allow: /contact-us
-Allow: /gallery
-Allow: /all-categories
-Allow: /all-categories/
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: TelegramBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 0
-
-User-agent: Applebot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-# ============================================
-# OTHER SEARCH ENGINES
-# ============================================
 User-agent: DuckDuckBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-User-agent: Baiduspider
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 2
-
-User-agent: Yandex
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 1
-
-User-agent: YandexImages
-Allow: /
-Allow: /gallery
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
 Crawl-delay: 1
 
 # ============================================
-# AGGRESSIVE BOTS - Higher crawl delay
+# AGGRESSIVE SEO TOOLS
 # ============================================
+# Limits server load from tools like Ahrefs/Semrush
 User-agent: AhrefsBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 10
-
 User-agent: SemrushBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 10
-
 User-agent: MJ12bot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 10
-
 User-agent: DotBot
-Allow: /
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Crawl-delay: 10
+Crawl-delay: 5
 
 # ============================================
-# BLOCKED BOTS - Known scrapers and bad actors
+# BLOCK AI & LLM SCRAPERS
 # ============================================
-User-agent: CCBot
-Disallow: /
-
+# Prevents your content from being used to train AI models
 User-agent: GPTBot
-Disallow: /
-
 User-agent: ChatGPT-User
-Disallow: /
-
 User-agent: Google-Extended
-Disallow: /
-
+User-agent: CCBot
 User-agent: anthropic-ai
-Disallow: /
-
 User-agent: Claude-Web
+User-agent: Omgilibot
+User-agent: FacebookBot
 Disallow: /
 
 # ============================================
 # SITEMAP LOCATION
 # ============================================
-# Next.js automatically generates sitemap.xml at the root
 Sitemap: https://www.glassexpertqatar.com/sitemap.xml
