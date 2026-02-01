@@ -16,7 +16,7 @@ const main = async () => {
     await seedSuperAdmin();
 
     server = app.listen(env.PORT, () => {
-      console.log("ENV", env);
+      // console.log("ENV", env);
       console.log(
         `Server is running on port ${env.PORT} in ${env.NODE_ENV} mode`
       );
